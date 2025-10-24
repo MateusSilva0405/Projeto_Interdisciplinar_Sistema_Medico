@@ -19,6 +19,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+<<<<<<< HEAD
+=======
+
+>>>>>>> c2c911091e63aff70f086208555eb24ebf54f21a
 public class Consulta {
     
     @Id
@@ -40,4 +44,8 @@ public class Consulta {
     @ManyToOne
     @JoinColumn(name = "idConsulta")
     private Consulta consulta;
+<<<<<<< HEAD
 } 
+=======
+}
+>>>>>>> c2c911091e63aff70f086208555eb24ebf54f21a
