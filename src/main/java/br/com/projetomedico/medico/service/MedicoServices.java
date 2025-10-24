@@ -1,4 +1,4 @@
-package br.com.projetomedico.medico.services;
+package br.com.projetomedico.medico.service;
 
 import java.util.List;
 
