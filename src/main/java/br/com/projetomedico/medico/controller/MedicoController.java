@@ -32,7 +32,7 @@ public class MedicoController {
     @GetMapping("/criar")
     public String criarForm(Model model){
         model.addAttribute("medico", new Medico());
-        return "medico/formularioMedico"
+        return "medico/formularioMedico";
     }
 
     @PostMapping("/salvar")
