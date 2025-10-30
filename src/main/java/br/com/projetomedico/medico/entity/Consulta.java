@@ -24,14 +24,14 @@ public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idConsulta;
-
+ 
     @Column(nullable = false, length = 40)
     private String obsConsulta;
 
     private LocalDateTime dataehoraConsulta;
 
     @Column(nullable = false, length = 40)
-    private String especialidadeMedico;
+    private String observacoesConsulta;
 
     @ManyToOne
     @JoinColumn(name = "idMedico")

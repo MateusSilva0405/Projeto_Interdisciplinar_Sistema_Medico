@@ -4,9 +4,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Marcar Consulta</title>
 </head>
 <body>
-    
+    <h1>Cadastro Paciente</h1>
+    <form th:action="@{/consultas/salvar}" method="POST" th:object="${consultas}">
+
+        <input type="hidden" name="idConsulta" th:field="*{idConsulta}" readonly/>
+        <br>
+
+        <label for="obsConsulta"></label>
+        <input type="text" name="obsConsulta" th:field="*{obsConsulta}" placeholder="Observação"/>
+        <br>
+
+        <label for="dataehoraConsulta"></label>
+        <input type="date" name="dataehoraConsulta" th:field="*{dataehoraConsulta}"/>
+        <br>
+
+        <label>Medico Responsável:</label>
+        <select th:field="*{medico}" required>
+            <option value="">-- Selecione --</option>
+            <option th:each="cat : ${medicos}"
+                    th:value="${cat.idMedico}"
+                    th:text="${cat.nomeMedico}">
+            </option>
+        </select><br><br>
+
+        
+        <label>Paciente:</label>
+        <select th:field="*{paciente}" required>
+            <option value="">-- Selecione --</option>
+            <option th:each="cat : ${pacientes}"
+                    th:value="${cat.idPaciente}"
+                    th:text="${cat.nomePaciente}">
+            </option>
+        </select><br><br>
+
+        <input type="submit" value="salvar">
+    </form>
 </body>
 </html>

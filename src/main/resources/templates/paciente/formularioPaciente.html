@@ -4,9 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Adicionar Paciente</title>
 </head>
 <body>
-    
+    <h1>Cadastro Paciente</h1>
+    <form th:action="@{/pacientes/salvar}" method="POST" th:object="${paciente}">
+
+        <input type="hidden" name="idPaciente" th:field="*{idPaciente}" readonly/>
+        <br>
+
+        <label for="nomePaciente"></label>
+        <input type="text" name="nomePaciente" th:field="*{nomePaciente}" placeholder="Nome"/>
+        <br>
+
+        <label for="telPaciente"></label>
+        <input type="text" name="telPaciente" th:field="*{telPaciente}" placeholder="Telefone"/>
+        <br>
+
+        <label for="enderecoPaciente"></label>
+        <input type="text" name="enderecoPaciente" th:field="*{enderecoPaciente}" placeholder="Endereço"/>
+        <br>
+        
+    </form>
+    <input type="submit" value="salvar">
 </body>
 </html>
