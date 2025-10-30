@@ -4,9 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Lista de Pacientes</title>
 </head>
 <body>
-    
+    <h2><a href="/pacientes/criar">Cadastrar</a></h2>
+    <br>
+
+    <table border="1" align="center" id="custumer">
+        <thead>
+            <tr>
+                <td colspan="4" align="center">List de Pacientes</td>
+            </tr>
+            <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Endereco</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="paciente: ${pacientes}">
+                <td th:text="${paciente.nomePaciente}"></td>
+                <td th:text="${paciente.telPaciente}"></td>
+                <td th:text="${paciente.enderecoPaciente}"></td>
+                <td>
+                    <a th:href="@{/pacientes/editar/{id}(id=${paciente.idPaciente})}">Editar</a>
+                    <a th:href="@{/pacientes/excluir/{id}(id=${paciente.idPaciente})}">Excluir</a>
+                </td>0
+            </tr>
+        </tbody>
+    </table>
+    <h3><a href="/paciente">Voltar</a></h3>
 </body>
 </html>
