@@ -30,9 +30,6 @@ public class Consulta {
 
     private LocalDateTime dataehoraConsulta;
 
-    @Column(nullable = false, length = 40)
-    private String observacoesConsulta;
-
     @ManyToOne
     @JoinColumn(name = "idMedico")
     private Medico medico;

@@ -4,9 +4,50 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Lista de Consultas</title>
 </head>
 <body>
-    
+    <h2><a href="/consultas/criar">Cadastrar Consulta</a></h2>
+    <br>
+
+    <table border="1" align="center" id="custumer">
+        <thead>
+            <tr>
+                <td colspan="5" align="center">Lista de Consultas</td>
+            </tr>
+            <tr>
+                <th>Observação</th>
+                <th>Data</th>
+                <th>Medico</th>
+                <th>Paciente</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="consulta: ${consultas}">
+                <td th:text="${consulta.obsConsulta}"></td>
+                <td th:text="${consulta.dataehoraConsulta}"></td>
+                <td th:text="${consulta.medico != null ? consulta.medico.nomeMedico"></td>
+                <td th:text="${consulta.paciente != null ? consulta.paciente.nomePaciente"></td>
+                <td>
+                    <a th:href="@{/consultas/editar/{id}(id=${consulta.idConsulta})}">Editar</a>
+                    <a th:href="@{/consultas/excluir/{id}(id=${consulta.idConsulta})}">Excluir</a>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+    <h3><a href="/medico">Voltar</a></h3>
 </body>
 </html>
+<!-- 
+private Integer idConsulta;
+
+private String obsConsulta;
+
+private LocalDateTime dataehoraConsulta;
+
+
+private Medico medico;
+
+private Consulta consulta; -->
