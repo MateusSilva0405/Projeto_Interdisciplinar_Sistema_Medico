@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Medicos</title>
+</head>
+<body>
+    <h2><a href="/medicos/criar">Cadastrar</a></h2>
+    <br>
+
+    <table border="1" align="center" id="custumer">
+        <thead>
+            <tr>
+                <td colspan="4" align="center">Lista de Medicos</td>
+            </tr>
+            <tr>
+                <th>Nome</th>
+                <th>CRM</th>
+                <th>Especialidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="paciente: ${medicos}">
+                <td th:text="${medico.nomeMedico}"></td>
+                <td th:text="${medico.crmMedico}"></td>
+                <td th:text="${medico.especialidadeMedico"></td>
+                <td>
+                    <a th:href="@{/medicos/editar/{id}(id=${medico.idMedico})}">Editar</a>
+                    <a th:href="@{/medicos/excluir/{id}(id=${medico.idMedico})}">Excluir</a>
+                </td>0
+            </tr>
+        </tbody>
+    </table>
+    <h3><a href="/medico">Voltar</a></h3>
+</body>
+</html>
