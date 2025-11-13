@@ -9,7 +9,7 @@
 </head>
 <body>
     <h1>Cadastro Paciente</h1>
-    <form th:action="@{/medicos/salvar}" method="POST" th:object="${medicos}">
+    <form th:action="@{/medicos/salvar}" method="POST" th:object="${medico}">
 
         <input type="hidden" name="idMedico" th:field="*{idMedico}" readonly/>
         <br>
