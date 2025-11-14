@@ -29,4 +29,6 @@ public class Paciente {
 
     @Column(nullable = false, length = 40)
     private String enderecoPaciente;
+
+    private Integer cep;
 }
