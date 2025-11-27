@@ -40,8 +40,8 @@ public class ConsultaController {
     @GetMapping("/criar")
     public String criarForm(Model model){
         model.addAttribute("consulta", new Consulta());
-        model.addAttribute("medico", medicoServices.findAll());
-        model.addAttribute("paciente", pacienteServices.findAll());
+        model.addAttribute("medicos", medicoServices.findAll());
+        model.addAttribute("pacientes", pacienteServices.findAll());
         return "consulta/formularioConsulta";
     }
 
@@ -49,7 +49,7 @@ public class ConsultaController {
     @PostMapping("/salvar")
     public String salvar(@ModelAttribute Consulta consulta){
         service.save(consulta);
-        return "redirect:/consulta/listar";
+        return "redirect:/consultas/listar";
     }
 
     @GetMapping("/editar/{id}")
