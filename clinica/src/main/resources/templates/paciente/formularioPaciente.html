@@ -9,7 +9,7 @@
 
     <style>
         body {
-            background-color: #F2D5DB;
+            background-color: #F2F2F2;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -18,52 +18,61 @@
         }
 
         .container {
-            background-color: #D98494;
+            background-color: #F2CECE;
             display: flex;
             border-radius: 15px;
             box-shadow: 10px;
             width: 910px;
-            max-width: 90%;
+            max-width: 80%;
             flex-direction: column;
+            overflow: hidden;
         }
 
         .right-side{
             width: 40%;
-            padding: 10px;
+            padding: 40px;
             display: flex;
+            flex-direction: column;
+            text-align: center;
             justify-content: center;
             align-items: center;
         }
 
         .left-side{
             width: 60%;
-            padding: 10px;
+            padding: 50px;
         }
 
         .left-side h1{
-            color: #BF212E;
+            color: #17193F;
+            margin-bottom: 30px;
+            text-align: center;
         }
 
+        /*botao*/
+
         .form-control{
-            background: #F2B6C1;
-            color: #A64E2E;
+            background: #F2F2F2;
+            color: #17193F;
             border: none;
             box-shadow: none;
-            margin-bottom: 10px;
+            margin-bottom: 50px;
             position: relative;
-            font-size: 20px;
+            font-size: 10px;
         }
 
         .form-control input{
             width: 100%;
-            padding: 8px;
+            padding: 5px;
             border: none;
             background: transparent;
             outline: none;
             font-size: 20px;
+            margin-bottom: 20px;
         }
 
-        .form-control label {
+
+        .form-control label { 
             position: absolute;
             left: 10px;
             top: 2px;
@@ -72,29 +81,33 @@
         }
 
         .form-control input:focus~label, .form-control input:not(:placeholder-shown)~label {
-            top: -10px;
+            top: -22px;
             left: 5px;
             padding: 0 4px;
         }
 
+        .back-link {
+            text-align: center;
+        }
+
         .back-link a:link {
-            color: rgb(255, 255, 255);
+            color: #17193F;
         }
 
         /* link que foi visitado */
         .back-link a:visited {
-            color: rgb(255, 255, 255);
+            color: #17193F;
         }
 
         /* mouse acima */
         .back-link a:hover {
-            color: #BF1523;
+            color: #17193F;
             transition: 2s;
         }
 
         /* link selecionado */
         .back-link a:active {
-            color: rgb(255, 255, 255);
+            color: #17193F;
         }
 
         .back-link a {
@@ -103,19 +116,29 @@
         }
 
         .btn {
-            color: #BF1523;
+            color: #17193F;
+            font-size: 25px;
         }
 
-        
+        #texto {
+            font-size: 15px;
+        }
+
+        #foto {
+            width: 40%;
+            size: 50%;
+        }
+
+        a {
+            font-size: 20px;
+            margin-top: 70px;
+            padding-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="back-link">
-            <i class="bi bi-chevron-left"></i><a href="/clinica">Voltar</a>
-        </div>
-        
-        <div class="container-fluid">    
+            
             <div class="left-side">
                 <h1>Cadastro de Pacientes</h1>
                 <form th:action="@{/pacientes/salvar}" method="POST" th:object="${paciente}">
@@ -124,26 +147,28 @@
     
                 <div class="form-control">
                     <input type="text" name="nomePaciente" th:field="*{nomePaciente}" placeholder=" " required/>
-                    <label for="nomePaciente">Nome</label>
+                    <label for="nomePaciente" id="texto">Nome</label>
                 </div>
         
                 <div class="form-control">
                     <input type="text" name="telPaciente" th:field="*{telPaciente}" placeholder=" " required/>
-                    <label for="telPaciente">Telefone</label>
+                    <label for="telPaciente" id="texto">Telefone</label>
                 </div>
         
                 <div class="form-control">
                     <input type="text" name="enderecoPaciente" th:field="*{enderecoPaciente}" placeholder=" " required/>
-                    <label for="enderecoPaciente">CEP</label>
+                    <label for="enderecoPaciente" id="texto">CEP</label>
                 </div>
+            </div>
 
-                <div class="right-side">
-                    <img src="https://cdn-icons-png.flaticon.com/256/6667/6667154.png">
-                </div>
-        </div>
-        </div>
+            <div class="right-side">
+                <img id="foto" src="/clinica/src/main/resources/static/like-removebg-preview.png">
+            </div>
         
         <button type="submit" value="salvar" class="btn">Salvar</button>
+        <div class="back-link">
+            <i class="bi bi-chevron-left"></i><a href="/clinica">Voltar</a>
+        </div>
     </form>
     </div>
 
