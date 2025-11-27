@@ -11,18 +11,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import br.com.projetomedico.medico.dto.MedicoConsulta;
 import br.com.projetomedico.medico.entity.Consulta;
+import br.com.projetomedico.medico.entity.Medico;
 import br.com.projetomedico.medico.entity.Paciente;
 import br.com.projetomedico.medico.service.ConsultaServices;
 import br.com.projetomedico.medico.service.MedicoServices;
 import br.com.projetomedico.medico.service.PacienteServices;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequestMapping("/consultas")
 public class ConsultaController {
     
     @Autowired
-    private ConsultaServices service;
+    private ConsultaServices consultaServices;
 
     @Autowired
     private MedicoServices medicoServices;
@@ -32,7 +36,7 @@ public class ConsultaController {
 
     @GetMapping("/listar")
     public String Listar(Model model) {
-        List<Consulta> consultas = service.findAll();
+        List<Consulta> consultas = consultaServices.findAll();
         model.addAttribute("consultas", consultas);
         return "consulta/listarConsulta";
     }
@@ -40,28 +44,42 @@ public class ConsultaController {
     @GetMapping("/criar")
     public String criarForm(Model model){
         model.addAttribute("consulta", new Consulta());
-        model.addAttribute("medicos", medicoServices.findAll());
-        model.addAttribute("pacientes", pacienteServices.findAll());
+        List<Medico> medicos = medicoServices.findAll();
+        model.addAttribute("medicos", medicoServices);
+        List<Paciente> pacientes = pacienteServices.findAll();
+        model.addAttribute("pacientes", pacienteServices);
         return "consulta/formularioConsulta";
     }
 
 
     @PostMapping("/salvar")
     public String salvar(@ModelAttribute Consulta consulta){
-        service.save(consulta);
+        consultaServices.save(consulta);
         return "redirect:/consultas/listar";
     }
 
     @GetMapping("/editar/{id}")
     public String editarForm(@PathVariable Integer id, Model model){
-        Consulta consulta = service.findById(id);
+        Consulta consulta = consultaServices.findById(id);
         model.addAttribute("consulta", consulta);
+        List<Medico> medicos = medicoServices.findAll();
+        model.addAttribute("medicos", medicoServices);
+        List<Paciente> pacientes = pacienteServices.findAll();
+        model.addAttribute("pacientes", pacienteServices);
         return "consulta/formularioConsulta";
     }
 
     @GetMapping("/excluir/{id}")
     public String excluir(@PathVariable Integer id){
-        service.deleteById(id);
+        consultaServices.deleteById(id);
         return "redirect:/consultas/listar";
     }
+
+    @GetMapping("listar-nome-medico")
+    public String listarNomeMedico(Model model) {
+        List<MedicoConsulta> consultas = consultaServices.buscarNomeMedico();
+        model.addAttribute("consultas", consultas);
+        return "consulta/listarConsulta";
+    }
+    
 }
