@@ -160,8 +160,8 @@
                     <select th:field="*{medico}" required>
                         <option value=""></option>
                         <option th:each="cat : ${medicos}"
-                                th:value="${cat.idMedico}"
-                                th:text="${cat.nomeMedico}">
+                                th:value="${medico.idMedico}"
+                                th:text="${medico.nomeMedico}">
                         </option>
                     </select>
                 </div>
@@ -171,8 +171,8 @@
                     <select th:field="*{paciente}" required>
                         <option value="">       </option>
                         <option th:each="cat : ${pacientes}"
-                                th:value="${cat.idPaciente}"
-                                th:text="${cat.nomePaciente}">
+                                th:value="${paciente.idPaciente}"
+                                th:text="${paciente.nomePaciente}">
                         </option>
                     </select>
                 </div>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.projetomedico.medico.dto.MedicoConsulta;
 import br.com.projetomedico.medico.entity.Consulta;
 import br.com.projetomedico.medico.repository.ConsultaRepository;
 
@@ -28,5 +29,9 @@ public class ConsultaServices {
 
     public void deleteById(Integer id){
         repository.deleteById(id);
+    }
+
+    public List<MedicoConsulta> buscarNomeMedico(){
+        return repository.buscarNomeMedico();
     }
 }

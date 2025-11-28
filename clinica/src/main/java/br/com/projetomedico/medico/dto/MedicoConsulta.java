@@ -1,17 +1,25 @@
 package br.com.projetomedico.medico.dto;
 
+import br.com.projetomedico.medico.entity.Consulta;
+import br.com.projetomedico.medico.entity.Medico;
+
 public class MedicoConsulta {
     
     private String nomeMedico;
     private String especialidadeMedico;
     private String obsConsulta;
 
-    public String getNomeMedico() {
-        return nomeMedico;
+    public MedicoConsulta() {       
     }
 
-    public void setNomeMedico(String nomeMedico) {
+    public MedicoConsulta(String nomeMedico, String especialidadeMedico, String obsConsulta) {
         this.nomeMedico = nomeMedico;
+        this.especialidadeMedico = especialidadeMedico;
+        this.obsConsulta = obsConsulta;
+    }
+
+    public String getNomeMedico() {
+        return nomeMedico;
     }
 
     public String getEspecialidadeMedico() {
@@ -21,14 +29,7 @@ public class MedicoConsulta {
     public String getObsConsulta() {
         return obsConsulta;
     }
-
-    public void setEspecialidadeMedico(String especialidadeMedico) {
-        this.especialidadeMedico = especialidadeMedico;
-    }
-
-    public void setObsConsulta(String obsConsulta) {
-        this.obsConsulta = obsConsulta;
-    }
     
+  
 
 }
