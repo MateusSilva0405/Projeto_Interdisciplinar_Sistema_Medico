@@ -6,35 +6,125 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Pacientes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <style>
+        body {
+            background-color: #F2F2F2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #F2CECE;
+            display: flex;
+            border-radius: 15px;
+            box-shadow: 10px;
+            width: 1400px;
+            height: 600px;
+            max-width: 80%;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .back-link{
+            margin: 5px;
+            margin-top: 280px;
+        }
+
+        .back-link a:link {
+            color: #17193F;
+        }
+
+        /* link que foi visitado */
+        .back-link a:visited {
+            color: #17193F;
+        }
+
+        /* mouse acima */
+        .back-link a:hover {
+            color: #17193F;
+            transition: 2s;
+        }
+
+        /* link selecionado */
+        .back-link a:active {
+            color: #17193F;
+        }
+
+        .back-link a {
+            text-decoration: none;
+        }
+
+        .left-side{
+            width: 70%;
+            padding: 50px;
+        }
+
+        .left-side h1{
+            color: #17193F;
+            margin-bottom: 30px;
+            margin-left: 3rem;
+        }
+
+        table {
+            width: 80%;
+        }
+
+        #coracao {
+            position: absolute;
+            left: 62.8%;
+            bottom: 37%;
+        }
+
+        #cadast {
+            color: #17193F;
+            text-decoration: none;
+            margin: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h2><a href="/pacientes/criar">Cadastrar</a></h2>
-    <br>
+    <div class="container">
+        <h3><a href="/pacientes/criar" id="cadast">Cadastrar</a></h3>
 
-    <table border="1" align="center" id="custumer">
-        <thead>
-            <tr>
-                <td colspan="4" align="center">List de Pacientes</td>
-            </tr>
-            <tr>
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th>Endereco</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="paciente: ${pacientes}">
-                <td th:text="${paciente.nomePaciente}"></td>
-                <td th:text="${paciente.telPaciente}"></td>
-                <td th:text="${paciente.enderecoPaciente}"></td>
-                <td>
-                    <a th:href="@{/pacientes/editar/{id}(id=${paciente.idPaciente})}">Editar</a>
-                    <a th:href="@{/pacientes/excluir/{id}(id=${paciente.idPaciente})}">Excluir</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <h3><a href="/clinica">Voltar</a></h3>
+        <div class="left-side">
+            <h1 class="bi bi-heart-pulse-fill"> Pacientes Cadastrados</h1>
+            <table border="1" id="custumer">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                        <th>Endereco</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="paciente: ${pacientes}">
+                        <td th:text="${paciente.nomePaciente}"></td>
+                        <td th:text="${paciente.telPaciente}"></td>
+                        <td th:text="${paciente.enderecoPaciente}"></td>
+                        <td>
+                            <a th:href="@{/pacientes/editar/{id}(id=${paciente.idPaciente})}">Editar</a>
+                            <a th:href="@{/pacientes/excluir/{id}(id=${paciente.idPaciente})}">Excluir</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="240" height="210" fill="#17193F" class="bi bi-heart-pulse" id="coracao" viewBox="0 0 16 16">
+            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053.918 3.995.78 5.323 1.508 7H.43c-2.128-5.697 4.165-8.83 7.394-5.857q.09.083.176.171a3 3 0 0 1 .176-.17c3.23-2.974 9.522.159 7.394 5.856h-1.078c.728-1.677.59-3.005.108-3.947C13.486.878 10.4.28 8.717 2.01zM2.212 10h1.315C4.593 11.183 6.05 12.458 8 13.795c1.949-1.337 3.407-2.612 4.473-3.795h1.315c-1.265 1.566-3.14 3.25-5.788 5-2.648-1.75-4.523-3.434-5.788-5"/>
+            <path d="M10.464 3.314a.5.5 0 0 0-.945.049L7.921 8.956 6.464 5.314a.5.5 0 0 0-.88-.091L3.732 8H.5a.5.5 0 0 0 0 1H4a.5.5 0 0 0 .416-.223l1.473-2.209 1.647 4.118a.5.5 0 0 0 .945-.049l1.598-5.593 1.457 3.642A.5.5 0 0 0 12 9h3.5a.5.5 0 0 0 0-1h-3.162z"/>
+        </svg>
+
+        <div class="back-link">
+            <h3><a href="/clinica">Voltar</a></h3>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
