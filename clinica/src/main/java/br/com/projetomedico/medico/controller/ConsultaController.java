@@ -27,7 +27,7 @@ public class ConsultaController {
     
     @Autowired
     private ConsultaServices consultaServices;
-
+    
     @Autowired
     private MedicoServices medicoServices;
 
@@ -44,10 +44,10 @@ public class ConsultaController {
     @GetMapping("/criar")
     public String criarForm(Model model){
         model.addAttribute("consulta", new Consulta());
-        List<Medico> medicos = medicoServices.findAll();
-        model.addAttribute("medicos", medicoServices);
-        List<Paciente> pacientes = pacienteServices.findAll();
-        model.addAttribute("pacientes", pacienteServices);
+        List<Medico> medico = medicoServices.findAll();
+        model.addAttribute("medicos", medicoServices.findAll());
+        List<Paciente> paciente = pacienteServices.findAll();
+        model.addAttribute("pacientes", pacienteServices.findAll());;
         return "consulta/formularioConsulta";
     }
 
@@ -59,19 +59,22 @@ public class ConsultaController {
     }
 
     @GetMapping("/editar/{id}")
-    public String editarForm(@PathVariable Integer id, Model model){
+    public String editarForm(@PathVariable("id") Integer id, Model model){
         Consulta consulta = consultaServices.findById(id);
         model.addAttribute("consulta", consulta);
         List<Medico> medicos = medicoServices.findAll();
-        model.addAttribute("medicos", medicoServices);
+        model.addAttribute("medicos", medicos);
         List<Paciente> pacientes = pacienteServices.findAll();
-        model.addAttribute("pacientes", pacienteServices);
+        model.addAttribute("pacientes", pacientes);
         return "consulta/formularioConsulta";
     }
 
     @GetMapping("/excluir/{id}")
-    public String excluir(@PathVariable Integer id){
-        consultaServices.deleteById(id);
+    public String excluir(@PathVariable("id") Integer id){
+        Consulta consulta = consultaServices.findById(id);
+        if (consulta != null) {
+            consultaServices.deleteById(id);
+        }
         return "redirect:/consultas/listar";
     }
 

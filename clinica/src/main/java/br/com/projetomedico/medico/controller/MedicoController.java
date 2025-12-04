@@ -42,7 +42,7 @@ public class MedicoController {
     }
 
     @GetMapping("/editar/{id}")
-    public String editarForm(@PathVariable Integer id, Model model){
+    public String editarForm(@PathVariable("id") Integer id, Model model){
         Medico medico = service.findById(id);
         model.addAttribute("medico", medico);
 
@@ -50,7 +50,7 @@ public class MedicoController {
     }
 
     @GetMapping("/excluir/{id}")
-    public String excluir(@PathVariable Integer id){
+    public String excluir(@PathVariable("id") Integer id){
         service.deleteById(id);
         return "redirect:/medicos/listar";
     }
