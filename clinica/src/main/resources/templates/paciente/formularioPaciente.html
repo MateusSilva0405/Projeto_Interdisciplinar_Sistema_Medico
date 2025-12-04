@@ -124,7 +124,7 @@
             font-weight: bold;
         }
 
-        #texto {
+        label {
             font-size: 15px;
         }
 
@@ -159,33 +159,30 @@
         
                     <div class="form-control">
                         <input type="text" name="nomePaciente" th:field="*{nomePaciente}" placeholder=" " required/>
-                        <label for="nomePaciente" id="texto">Nome</label>
+                        <label for="nomePaciente">Nome</label>
                     </div>
             
                     <div class="form-control">
                         <input type="text" name="telPaciente" th:field="*{telPaciente}" placeholder=" " required/>
-                        <label for="telPaciente" id="texto">Telefone</label>
+                        <label for="telPaciente">Telefone</label>
                     </div>
             
-                    <div class="form-control">
-                        <input type="text" id="cep" name="enderecoPaciente" th:field="*{enderecoPaciente}" placeholder=" " required/>
-                        <label for="enderecoPaciente" id="texto">CEP</label>
+                    <div class="form-control" size="10">
+                        <input type="text" id="cep" name="cepPaciente" th:field="*{cepPaciente}" placeholder=" " required/>
+                        <label for="cepPaciente">CEP</label>
                     </div>
 
                     <!-- Campos de endereço preenchidos pela API viaCEP -->
 
-                    <div class="form-control">
-                        <input type="text" id="cidade" name="cidade" th:field="*{cidade}" placeholder=" " />
-                        <label for="cidade" id="texto">Cidade</label>
+                    <div class="form-control" size="40">
+                        <input type="text" id="cidade" th:field="*{cidadePaciente}" placeholder=" " />
+                        <label for="cidadePaciente">Cidade</label>
                     </div>
-
-                    <div class="form-control">
-                        <input type="text" id="uf" name="uf" th:field="*{uf}" placeholder=" " />
-                        <label for="uf" id="texto">Estado</label>
+                    
+                    <div class="form-control" size="2">
+                        <input type="text" id="uf" th:field="*{ufPaciente}" placeholder=" " />
+                        <label for="ufPaciente">Estado</label>
                     </div>
-
-                    <input type="hidden" id="ibge" name="ibge" th:field="*{ibge}" />
-
                 </div>
 
                 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" fill="#17193F" class="bi bi-heart-pulse" id="coracao" viewBox="0 0 16 16">
@@ -210,11 +207,8 @@
              // Usa os IDs dos inputs adicionados acima (cep, rua, bairro, cidade, uf, ibge).
              $(document).ready(function() {
                  function limpa_formulario_cep() {
-                     $("#rua").val("");
-                     $("#bairro").val("");
                      $("#cidade").val("");
                      $("#uf").val("");
-                     $("#ibge").val("");
                  }
      
                  $("#cep").blur(function() {
@@ -222,18 +216,12 @@
                      if (cep !== "") {
                          var validacep = /^[0-9]{8}$/;
                          if (validacep.test(cep)) {
-                             $("#rua").val("...");
-                             $("#bairro").val("...");
                              $("#cidade").val("...");
                              $("#uf").val("...");
-                             $("#ibge").val("...");
                              $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function(dados) {
                                  if (!("erro" in dados)) {
-                                     $("#rua").val(dados.logradouro);
-                                     $("#bairro").val(dados.bairro);
                                      $("#cidade").val(dados.localidade);
                                      $("#uf").val(dados.uf);
-                                     $("#ibge").val(dados.ibge);
                                  } else {
                                      limpa_formulario_cep();
                                      alert("CEP não encontrado.");

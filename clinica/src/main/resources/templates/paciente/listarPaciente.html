@@ -99,14 +99,18 @@
                     <tr>
                         <th>Nome</th>
                         <th>Telefone</th>
-                        <th>Endereco</th>
+                        <th>Cep</th>
+                        <th>Cidade</th>
+                        <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="paciente: ${pacientes}">
                         <td th:text="${paciente.nomePaciente}"></td>
                         <td th:text="${paciente.telPaciente}"></td>
-                        <td th:text="${paciente.enderecoPaciente}"></td>
+                        <td th:text="${paciente.cepPaciente}"></td>
+                        <td th:text="${paciente.cidadePaciente}"></td>
+                        <td th:text="${paciente.ufPaciente}"></td>
                         <td>
                             <a th:href="@{/pacientes/editar/{id}(id=${paciente.idPaciente})}">Editar</a>
                             <a th:href="@{/pacientes/excluir/{id}(id=${paciente.idPaciente})}">Excluir</a>

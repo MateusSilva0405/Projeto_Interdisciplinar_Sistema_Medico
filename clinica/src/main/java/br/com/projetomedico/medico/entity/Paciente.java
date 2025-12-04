@@ -15,7 +15,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Paciente {
     
     @Id
@@ -25,8 +24,18 @@ public class Paciente {
     @Column(nullable = false, length = 40)
     private String nomePaciente;
 
-    private Integer telPaciente;
+    // recomenda-se usar String para telefone e CEP (mantém zeros à esquerda)
+    private String telPaciente;
+
+    private String cepPaciente;
 
     @Column(nullable = false, length = 40)
-    private String enderecoPaciente;
+    private String cidadePaciente;
+
+    @Column(nullable = false, length = 2)
+    private String ufPaciente;
+
+
+
+
 }

@@ -125,7 +125,7 @@
             font-weight: bold;
         }
 
-        #texto {
+        .text {
             font-size: 15px;
         }
 
@@ -160,12 +160,12 @@
 
                 <div class="form-control">
                     <input type="text" name="obsConsulta" th:field="*{obsConsulta}" placeholder=" " required/>
-                    <label for="obsConsulta" id="texto">Observação</label>
+                    <label for="obsConsulta" class="text">Observação</label>
                 </div>
 
                 <div class="form-control">
                     <input type="datetime-local" name="dataehoraConsulta" th:field="*{dataehoraConsulta}"/>
-                    <label for="dataehoraConsulta" id="texto">Agendamento</label>
+                    <label for="dataehoraConsulta" class="text">Agendamento</label>
                 </div>
 
                 <label id="texto">Medico</label>
