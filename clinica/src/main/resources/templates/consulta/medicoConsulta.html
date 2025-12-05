@@ -1,12 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>Consultas por Médico</title>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
 </head>
 <body>
-    
+    <h1>Consultas por Médico</h1>
+    <form>
+        <label for="medicoSelect">Selecione um médico:</label>
+        <select id="medicoSelect" name="medico" onchange="filtrarConsultas()">
+            <option value="">Selecione...</option>
+            <th:block th:each="consulta : ${consultas}">
+                <option th:value="${consulta.nomeMedico}" th:text="${consulta.nomeMedico}"></option>
+            </th:block>
+        </select>
+    </form>
+
+    <br>
+    <div id="consultasMedico">
+        <!-- Aqui aparecerá a tabela apenas do médico selecionado -->
+        <table border="1" id="tabelaConsultas" style="display:none;">
+            <thead>
+                <tr>
+                    <th>Nome do Médico</th>
+                    <th>Especialidade</th>
+                    <th>Observação da Consulta</th>
+                    <th>Abrir detalhes</th>
+                </tr>
+            </thead>
+            <tbody id="tbodyConsultas">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Captura a lista de consultas JavaScript
+        var consultas = /*[[${consultas}]]*/ [];
+        // Thymeleaf fallback para non-inline
+        if (!Array.isArray(consultas)) {
+            consultas = [];
+        }
+
+        function filtrarConsultas() {
+            var select = document.getElementById('medicoSelect');
+            var medicoSelecionado = select.value;
+            var tabela = document.getElementById('tabelaConsultas');
+            var tbody = document.getElementById('tbodyConsultas');
+            tbody.innerHTML = '';
+            if (!medicoSelecionado) {
+                tabela.style.display = 'none';
+                return;
+            }
+            var filtrados = consultas.filter(function(c) {
+                return c.nomeMedico === medicoSelecionado;
+            });
+            filtrados.forEach(function(c) {
+                var tr = document.createElement('tr');
+                tr.innerHTML = '<td>' + c.nomeMedico + '</td>' +
+                               '<td>' + c.especialidadeMedico + '</td>' +
+                               '<td>' + c.obsConsulta + '</td>' +
+                               '<td><a href="/medicoConsulta?medico=' + encodeURIComponent(c.nomeMedico) + '">Detalhes</a></td>';
+                tbody.appendChild(tr);
+            });
+            tabela.style.display = filtrados.length > 0 ? '' : 'none';
+        }
+    </script>
 </body>
 </html>

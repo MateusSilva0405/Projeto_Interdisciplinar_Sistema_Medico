@@ -78,7 +78,7 @@ public class ConsultaController {
         return "redirect:/consultas/listar";
     }
 
-    @GetMapping("listar-nome-medico")
+    @GetMapping("/listar-nome-medico")
     public String listarNomeMedico(Model model) {
         List<MedicoConsulta> consultas = consultaServices.buscarNomeMedico();
         model.addAttribute("consultas", consultas);
