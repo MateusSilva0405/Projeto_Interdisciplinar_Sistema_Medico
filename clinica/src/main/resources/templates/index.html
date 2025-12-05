@@ -6,13 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clinica</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <style>
+        body {
+            background-color: #F2F2F2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-repeat: no-repeat;
+            background-image: url('/clinica/src/main/resources/static/Design\ sem\ nome.jpg');
+        }
+
+        .container {
+            display: flex;
+            border-radius: 15px;
+            box-shadow: 10px;
+            width: 1400px;
+            height: 600px;
+            max-width: 80%;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        h3 a {
+            text-decoration: none;
+        }
+
+        .btn {
+            background-color: #F2F2F2;
+
+        }
+    </style>
 </head>
 <body>
-    
-    <h1>Clinica</h1>
-    <h3><a href="/medicos/listar">Gerenciar Medicos</a></h3>
-    <h3><a href="/pacientes/listar">Gerenciar Pacientes</a></h3>
-    <h3><a href="/consultas/listar">Gerenciar Consultas</a></h3>
+
+    <div class="container">
+        
+        <h1>Clinica</h1>
+        
+        <div id="botao">
+            <h3><a href="/medicos/listar" class="btn">Gerenciar Medicos</a></h3>
+            <h3><a href="/pacientes/listar" class="btn">Gerenciar Pacientes</button></h3>
+            <h3><a href="/consultas/listar" class="btn">Gerenciar Consultas</a></h3>
+        </div>
+    </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
