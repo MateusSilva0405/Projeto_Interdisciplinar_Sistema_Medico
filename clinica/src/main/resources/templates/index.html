@@ -211,17 +211,17 @@
             <div class="links" role="navigation" aria-label="Principais ações">
                 <a class="big-btn" href="/pacientes/listar">
                     <div class="label"><div class="icon">P</div>Pacientes</div>
-                    <div class="count">0</div>
+                    <div class="count"><strong th:text="${#lists.size(pacientes)}">0</strong></div>
                 </a>
 
                 <a class="big-btn" href="/medicos/listar">
                     <div class="label"><div class="icon">M</div>Médicos</div>
-                    <div class="count">0</div>
+                    <div class="count"><strong th:text="${#lists.size(medicos)}">0</strong></div>
                 </a>
 
                 <a class="big-btn" href="/consultas/listar">
                     <div class="label"><div class="icon">C</div>Consultas</div>
-                    <div class="count">0</div>
+                    <div class="count"><strong th:text="${#lists.size(consultas)}">0</strong></div>
                 </a>
             </div>
 
