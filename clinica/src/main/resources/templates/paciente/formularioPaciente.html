@@ -240,7 +240,7 @@
                         <div class="field">
                             <!-- USAR id="cep" para o script, name/th:field com o nome da entidade (cepPaciente) -->
                             <input type="text" id="cep" name="cepPaciente" th:field="*{cepPaciente}" placeholder=" " required />
-                            <label for="cep">CEP</label>
+                            <label for="cepPaciente">CEP</label>
                         </div>
                         <button type="button" class="btn-lookup" id="btn-cep" title="Preencher endereço">Buscar</button>
                     </div>
@@ -252,7 +252,7 @@
                 <div class="field">
                     <input type="text" id="rua" name="ruaPaciente" th:field="*{ruaPaciente}" placeholder=" " />
                     <!-- ajuste: label for aponta para o id -->
-                    <label for="rua">Rua</label>
+                    <label for="ruaPaciente">Rua</label>
                 </div>
 
                 <div class="field">
@@ -264,14 +264,14 @@
                     <div style="flex:1">
                         <div class="field">
                             <input type="text" id="cidade" name="cidadePaciente" th:field="*{cidadePaciente}" placeholder=" " />
-                            <label for="cidade">Cidade</label>
+                            <label for="cidadePaciente">Cidade</label>
                         </div>
                     </div>
 
                     <div style="width:120px">
                         <div class="field">
                             <input type="text" id="uf" name="ufPaciente" th:field="*{ufPaciente}" placeholder=" " />
-                            <label for="uf">Estado</label>
+                            <label for="ufPaciente">Estado</label>
                         </div>
                     </div>
                 </div>

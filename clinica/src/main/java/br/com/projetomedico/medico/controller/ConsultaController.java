@@ -82,7 +82,7 @@ public class ConsultaController {
     public String listarNomeMedico(Model model) {
         List<MedicoConsulta> consultas = consultaServices.buscarNomeMedico();
         model.addAttribute("consultas", consultas);
-        return "consulta/listarConsulta";
+        return "consulta/medicoConsulta";
     }
     
 }
