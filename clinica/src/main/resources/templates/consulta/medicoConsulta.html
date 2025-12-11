@@ -6,17 +6,16 @@
 </head>
 <body>
     <h1>Consultas por Médico</h1>
-    <form>
-        <label for="medicoSelect">Selecione um médico:</label>
+    <form th:action="@{/consultas/listar-nome-medico}" method="get" class="filter-container">
+        <label>Selecione um médico:</label>
         <select id="medicoSelect" name="medico" onchange="filtrarConsultas()">
             <option value="">Selecione...</option>
-            <th:block th:each="consulta : ${consultas}">
-                <option th:value="${consulta.nomeMedico}" th:text="${consulta.nomeMedico}"></option>
-            </th:block>
-        </select>
+            <option th:each="${m:${medico}}" th:value="${m.idMedico}" th:text="${m.nomeMedico}" th:selected="${m.idMedicoSelecionado == m.idMedico}"></option>
+            </select>
+
+            <button type="submit">Filtrar</button>
     </form>
 
-    <br>
     <div id="consultasMedico">
         <!-- Aqui aparecerá a tabela apenas do médico selecionado -->
         <table border="1" id="tabelaConsultas" style="display:none;">
