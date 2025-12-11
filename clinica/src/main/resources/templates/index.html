@@ -198,7 +198,7 @@
             <div id="botao" aria-hidden="false">
                 <h3><a href="/medicos/listar" class="btn">Gerenciar Medicos</a></h3>
                 <h3><a href="/consultas/listar" class="btn">Gerenciar Consultas</a></h3>
-                <h3><a href="/consultas/listarConsulta" class="btn">Consultas do Médico</a></h3>
+                <h3><a href="/consultas/listar-nome-medico" class="btn">Consultas do Médico</a></h3>
             </div>
 
             <p class="meta">“Psicoduo — Cuidando da mente com leveza, acolhimento e cor.”</p>
@@ -211,17 +211,17 @@
             <div class="links" role="navigation" aria-label="Principais ações">
                 <a class="big-btn" href="/pacientes/listar">
                     <div class="label"><div class="icon">P</div>Pacientes</div>
-                    <div class="count"><strong th:text="${#lists.size(pacientes)}">0</strong></div>
+                    <div class="count"></div>
                 </a>
 
                 <a class="big-btn" href="/medicos/listar">
                     <div class="label"><div class="icon">M</div>Médicos</div>
-                    <div class="count"><strong th:text="${#lists.size(medicos)}">0</strong></div>
+                    <div class="count"></div>
                 </a>
 
                 <a class="big-btn" href="/consultas/listar">
                     <div class="label"><div class="icon">C</div>Consultas</div>
-                    <div class="count"><strong th:text="${#lists.size(consultas)}">0</strong></div>
+                    <div class="count"></div>
                 </a>
             </div>
 

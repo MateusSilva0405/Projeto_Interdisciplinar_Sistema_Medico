@@ -41,6 +41,9 @@ public class Paciente {
     @Column(nullable = false, length = 2)
     private String ufPaciente;
 
+    @Column(length = 20)
+    private String ibgePaciente;
+
 
 
 
