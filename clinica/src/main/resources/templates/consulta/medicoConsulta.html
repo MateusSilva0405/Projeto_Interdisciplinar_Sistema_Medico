@@ -1,68 +1,232 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Consultas por Médico</title>
-    <meta charset="UTF-8">
+
+    <!-- Mantive a mesma estética usada nos outros templates -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root{
+            --pink-200:#ffd4e3; --pink-500:#ff79a6; --pink-700:#ff4b8a;
+            --dark-900:#17193F; --muted:rgba(23,25,63,0.64);
+            --glass:rgba(255,255,255,0.82); --shadow-sm: 0 10px 30px rgba(23,25,63,0.06);
+        }
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{
+            font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+            color:var(--dark-900);
+            background-color:#F2F2F2;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            display:flex; align-items:flex-start; justify-content:center; padding:28px 20px 60px;
+        }
+        .page { width:100%; max-width:1100px; }
+        .card { background:linear-gradient(180deg,rgba(255,255,255,0.98),rgba(255,255,255,0.94)); border-radius:16px; box-shadow:var(--shadow-sm); padding:22px; }
+        .header { display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:18px; }
+        .title { display:flex; gap:12px; align-items:center; }
+        .logo { width:56px; height:56px; border-radius:12px; display:grid; place-items:center; color:white; background:linear-gradient(135deg,var(--pink-200),var(--pink-500)); font-weight:700; font-size:18px; box-shadow:0 8px 22px rgba(255,75,138,0.08); }
+        .title h1{ font-size:22px; margin:0; color:var(--dark-900); }
+        .title p{ margin:0; font-size:13px; color:var(--muted); }
+
+        .filter-row { display:flex; gap:12px; align-items:center; }
+        .filter-row select { padding:10px 12px; border-radius:10px; border:1px solid rgba(23,25,63,0.08); background:white; min-width:260px; }
+        .filter-row button { padding:10px 14px; border-radius:10px; background:linear-gradient(90deg,var(--pink-500),var(--pink-700)); color:#fff; border:none; font-weight:700; }
+
+        .table-wrap { margin-top:14px; overflow:auto; border-radius:12px; border:1px solid rgba(23,25,63,0.04); background:white; }
+        table { width:100%; border-collapse:collapse; min-width:700px; }
+        thead th { text-align:left; padding:14px 16px; font-weight:700; background:linear-gradient(180deg,#fafafa,#f5f5f6); color:var(--dark-900); font-size:14px; border-bottom:1px solid rgba(23,25,63,0.06); }
+        tbody td { padding:12px 16px; border-bottom:1px solid rgba(23,25,63,0.04); color:var(--muted); font-size:14px; }
+        tbody tr:hover td { background: linear-gradient(90deg, rgba(255,121,166,0.03), rgba(255,75,138,0.02)); }
+
+        .no-results { padding:18px; color:var(--muted); font-size:14px; }
+        .actions { display:flex; gap:10px; margin-top:14px; }
+        @media (max-width:800px){ .filter-row{flex-direction:column; align-items:flex-start} table{ min-width:640px } }
+    </style>
 </head>
 <body>
-    <h1>Consultas por Médico</h1>
-    <form th:action="@{/consultas/listar-nome-medico}" method="get" class="filter-container">
-        <label>Selecione um médico:</label>
-        <select id="medicoSelect" name="medico" onchange="filtrarConsultas()">
-            <option value="">Selecione...</option>
-            <option th:each="${m:${medico}}" th:value="${m.idMedico}" th:text="${m.nomeMedico}" th:selected="${m.idMedicoSelecionado == m.idMedico}"></option>
-            </select>
+    <div class="page">
+        <div class="card" role="main" aria-labelledby="consultas-title">
+            <div class="header">
+                <div class="title" id="consultas-title">
+                    <div class="logo" aria-hidden="true">C</div>
+                    <div>
+                        <h1>Consultas por Médico</h1>
+                        <p>Filtre as consultas pelo médico. Selecionando um médico a lista será exibida abaixo.</p>
+                    </div>
+                </div>
 
-            <button type="submit">Filtrar</button>
-    </form>
+                <div class="actions" role="toolbar" aria-label="Ações">
+                    <a href="/consultas/listar" class="btn-ghost" style="text-decoration:none;padding:10px 14px;border-radius:10px;border:1px solid rgba(23,25,63,0.06);color:var(--dark-900);font-weight:600">Voltar</a>
+                </div>
+            </div>
 
-    <div id="consultasMedico">
-        <!-- Aqui aparecerá a tabela apenas do médico selecionado -->
-        <table border="1" id="tabelaConsultas" style="display:none;">
-            <thead>
-                <tr>
-                    <th>Nome do Médico</th>
-                    <th>Especialidade</th>
-                    <th>Observação da Consulta</th>
-                    <th>Abrir detalhes</th>
-                </tr>
-            </thead>
-            <tbody id="tbodyConsultas">
-            </tbody>
-        </table>
+            <!-- Filtro: a lista de médicos será construída a partir do atributo 'consultas' que o controller fornece -->
+            <div class="filter-row" aria-label="Filtro por médico">
+                <label for="medicoSelect" style="color:var(--muted);font-weight:600">Médico:</label>
+                <select id="medicoSelect" aria-label="Selecione um médico">
+                    <option value="">— selecione —</option>
+                    <!-- Se o controller não enviar uma lista separada de médicos, geramos opções a partir do list de consultas -->
+                    <th:block th:if="${consultas != null}">
+                        <!-- Iteração para criar opções únicas por id do médico (se houver) -->
+                        <th:block th:each="c : ${consultas}">
+                            <option th:value="${c.idMedico}" th:text="${c.nomeMedico + ' • ' + c.especialidadeMedico}" th:attr="data-medico=${c.nomeMedico}"></option>
+                        </th:block>
+                    </th:block>
+                </select>
+
+                <button type="button" id="btnFiltrar">Filtrar</button>
+            </div>
+
+            <div class="table-wrap" id="resultArea" role="region" aria-live="polite">
+                <table id="tabelaConsultas" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>Nome do Médico</th>
+                            <th>Especialidade</th>
+                            <th>Observação</th>
+                            <th>Detalhes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyConsultas">
+                        <!-- tbody será preenchido por JS -->
+                    </tbody>
+                </table>
+
+                <div id="noResults" class="no-results" style="display:none;">Nenhuma consulta encontrada para o médico selecionado.</div>
+            </div>
+        </div>
     </div>
 
-    <script>
-        // Captura a lista de consultas JavaScript
+    <!-- Inline JS com suporte Thymeleaf: renderiza o objeto consultas enviado pelo controller em uma variável JS.
+         O th:inline="javascript" garante que a lista seja serializada corretamente. -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
         var consultas = /*[[${consultas}]]*/ [];
-        // Thymeleaf fallback para non-inline
-        if (!Array.isArray(consultas)) {
-            consultas = [];
-        }
-
-        function filtrarConsultas() {
-            var select = document.getElementById('medicoSelect');
-            var medicoSelecionado = select.value;
-            var tabela = document.getElementById('tabelaConsultas');
-            var tbody = document.getElementById('tbodyConsultas');
-            tbody.innerHTML = '';
-            if (!medicoSelecionado) {
-                tabela.style.display = 'none';
-                return;
-            }
-            var filtrados = consultas.filter(function(c) {
-                return c.nomeMedico === medicoSelecionado;
-            });
-            filtrados.forEach(function(c) {
-                var tr = document.createElement('tr');
-                tr.innerHTML = '<td>' + c.nomeMedico + '</td>' +
-                               '<td>' + c.especialidadeMedico + '</td>' +
-                               '<td>' + c.obsConsulta + '</td>' +
-                               '<td><a href="/medicoConsulta?medico=' + encodeURIComponent(c.nomeMedico) + '">Detalhes</a></td>';
-                tbody.appendChild(tr);
-            });
-            tabela.style.display = filtrados.length > 0 ? '' : 'none';
-        }
+        /*]]>*/
     </script>
+
+    <script>
+        (function(){
+            // Normaliza a lista de consultas para uso no frontend.
+            // Espera-se que cada item tenha pelo menos:
+            // idMedico, nomeMedico, especialidadeMedico, obsConsulta
+            function safe(val){ return (typeof val === 'undefined' || val === null) ? '' : val; }
+
+            // Constrói mapa de consultas por médico
+            function consultasPorMedico() {
+                var map = {};
+                if (!Array.isArray(consultas)) return map;
+                consultas.forEach(function(c) {
+                    var id = safe(c.idMedico);
+                    if (!id) return;
+                    if (!map[id]) map[id] = [];
+                    map[id].push(c);
+                });
+                return map;
+            }
+
+            function mostraResultadoParaMedico(idMedico) {
+                var tbody = document.getElementById('tbodyConsultas');
+                var tabela = document.getElementById('tabelaConsultas');
+                var noResults = document.getElementById('noResults');
+                tbody.innerHTML = '';
+
+                if (!idMedico) {
+                    tabela.style.display = 'none';
+                    noResults.style.display = 'none';
+                    return;
+                }
+
+                var map = consultasPorMedico();
+                var lista = map[idMedico] || [];
+                if (lista.length === 0) {
+                    tabela.style.display = 'none';
+                    noResults.style.display = '';
+                    return;
+                }
+
+                lista.forEach(function(c) {
+                    var tr = document.createElement('tr');
+
+                    var nomeMed = safe(c.nomeMedico);
+                    var esp = safe(c.especialidadeMedico);
+                    var obs = safe(c.obsConsulta);
+
+                    // Ajuste da célula de detalhes: link para abrir a edição/visualização de
+                    // uma consulta (se houver rota). Use idConsulta se disponível.
+                    var detalhesHref = '#';
+                    if (c.idConsulta) {
+                        detalhesHref = '/consultas/editar/' + encodeURIComponent(c.idConsulta);
+                    }
+
+                    tr.innerHTML = '<td>' + nomeMed + '</td>' +
+                                   '<td>' + esp + '</td>' +
+                                   '<td>' + obs + '</td>' +
+                                   '<td><a href="' + detalhesHref + '">Abrir</a></td>';
+                    tbody.appendChild(tr);
+                });
+
+                noResults.style.display = 'none';
+                tabela.style.display = '';
+            }
+
+            document.addEventListener('DOMContentLoaded', function(){
+                var select = document.getElementById('medicoSelect');
+                var btn = document.getElementById('btnFiltrar');
+
+                // Se select já foi preenchido pelo Thymeleaf com opções duplicadas, vamos reduzir duplicatas
+                // Mantemos a primeira ocorrência de cada id
+                (function dedupeOptions(){
+                    var seen = {};
+                    var opts = Array.from(select.options);
+                    // preserve first placeholder option
+                    var kept = [opts[0]];
+                    for (var i = 1; i < opts.length; i++){
+                        var v = opts[i].value;
+                        if (!v) continue;
+                        if (!seen[v]) { seen[v] = true; kept.push(opts[i]); }
+                    }
+                    // remove all and re-append kept
+                    select.innerHTML = '';
+                    kept.forEach(function(o){ select.appendChild(o); });
+                })();
+
+                // Clique no botão filtrar
+                btn.addEventListener('click', function(e){
+                    var id = select.value;
+                    mostraResultadoParaMedico(id);
+                });
+
+                // Também filtrar ao trocar a seleção (opcional)
+                select.addEventListener('change', function(){
+                    var id = select.value;
+                    mostraResultadoParaMedico(id);
+                });
+
+                // Se houver consultas disponíveis e apenas um médico, mostre automaticamente
+                try {
+                    if (Array.isArray(consultas) && consultas.length > 0) {
+                        var map = consultasPorMedico();
+                        var keys = Object.keys(map);
+                        if (keys.length === 1) {
+                            select.value = keys[0];
+                            mostraResultadoParaMedico(keys[0]);
+                        }
+                    }
+                } catch(err) {
+                    console.error(err);
+                }
+            });
+        })();
+    </script>
+
+    <!-- bootstrap (mantido) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>

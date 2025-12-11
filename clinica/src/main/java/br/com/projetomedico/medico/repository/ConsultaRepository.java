@@ -10,7 +10,7 @@ import br.com.projetomedico.medico.entity.Consulta;
 
 public interface ConsultaRepository extends JpaRepository<Consulta, Integer>{
     
-    @Query("SELECT new br.com.projetomedico.medico.dto.MedicoConsulta(c.obsConsulta, m.nomeMedico, m.especialidadeMedico) FROM Consulta c, Medico m")
+    @Query("SELECT new br.com.projetomedico.medico.dto.MedicoConsulta(c.idConsulta,  m.idMedico,  m.nomeMedico, m.especialidadeMedico, c.obsConsulta) FROM Consulta c JOIN c.medico m")
     List<MedicoConsulta>
     buscarNomeMedico();
 
