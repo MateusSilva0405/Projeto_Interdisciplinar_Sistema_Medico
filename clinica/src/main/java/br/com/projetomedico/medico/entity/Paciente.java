@@ -32,6 +32,12 @@ public class Paciente {
     @Column(nullable = false, length = 40)
     private String cidadePaciente;
 
+    @Column(nullable = false, length = 40)
+    private String ruaPaciente;
+
+    @Column(nullable = false, length = 40)
+    private String bairroPaciente;
+
     @Column(nullable = false, length = 2)
     private String ufPaciente;
 

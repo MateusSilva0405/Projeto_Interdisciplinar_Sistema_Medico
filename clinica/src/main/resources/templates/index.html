@@ -1,15 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clinica</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clínica</title>
+
+    <!-- Mantive os mesmos caminhos para não causar erro no seu código -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
     <style>
+        /* --- Preservei a propriedade background-image original (caminho mantido) --- */
         body {
             background-color: #F2F2F2;
             display: flex;
@@ -19,42 +23,220 @@
             margin: 0;
             background-repeat: no-repeat;
             background-image: url('/clinica/src/main/resources/static/Design\ sem\ nome.jpg');
+            background-position: right center;
+            background-size: cover;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            color: #17193F;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
+        /* Container principal com estética limpa e profissional */
         .container {
-            display: flex;
-            border-radius: 15px;
-            box-shadow: 10px;
-            width: 1400px;
-            height: 600px;
-            max-width: 80%;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: 1fr 460px;
+            gap: 28px;
+            border-radius: 16px;
+            box-shadow: 0 18px 40px rgba(23,25,63,0.12);
+            width: 1200px;
+            max-width: 92%;
+            min-height: 520px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.90));
+            padding: 36px;
+            align-items: center;
             overflow: hidden;
         }
 
-        h3 a {
-            text-decoration: none;
+        /* Conteúdo da esquerda (título e botões) */
+        .hero {
+            padding-right: 8px;
+        }
+        .hero h1 {
+            font-size: 40px;
+            line-height: 1.02;
+            margin-bottom: 10px;
+            color: #17193F;
+            font-weight: 700;
+        }
+        .hero p {
+            color: rgba(23,25,63,0.68);
+            font-size: 16px;
+            margin-bottom: 20px;
+            max-width: 680px;
         }
 
-        .btn {
-            background-color: #F2F2F2;
+        .cta {
+            display:flex;
+            gap:14px;
+            align-items:center;
+            margin-bottom:22px;
+        }
 
+        .btn-cta {
+            display:inline-flex;
+            align-items:center;
+            gap:10px;
+            padding:12px 18px;
+            border-radius:12px;
+            font-weight:700;
+            text-decoration:none;
+            border: none;
+            cursor:pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #ff79a6, #ff4b8a);
+            color: #fff;
+            box-shadow: 0 12px 30px rgba(255,75,138,0.12);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid rgba(23,25,63,0.06);
+            color: #17193F;
+        }
+
+        /* Caixa da direita (cards rápidos) */
+        .panel {
+            background: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(255,255,255,0.7));
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 12px 30px rgba(23,25,63,0.06);
+            border: 1px solid rgba(23,25,63,0.03);
+            min-height: 360px;
+        }
+
+        .panel h4 { margin: 0 0 8px 0; color: #17193F; }
+        .panel p { color: rgba(23,25,63,0.6); margin-bottom: 14px; }
+
+        .links {
+            display:flex;
+            flex-direction:column;
+            gap:12px;
+            margin-top:18px;
+        }
+
+        .big-btn {
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:14px 18px;
+            border-radius:12px;
+            background: rgba(23,25,63,0.03);
+            text-decoration:none;
+            color: #17193F;
+            font-weight:600;
+            border: 1px solid rgba(23,25,63,0.04);
+        }
+
+        .big-btn .label {
+            display:flex;
+            gap:12px;
+            align-items:center;
+        }
+        .icon {
+            width:44px;
+            height:44px;
+            border-radius:10px;
+            display:grid;
+            place-items:center;
+            background: linear-gradient(135deg, rgba(255,121,166,0.18), rgba(255,75,138,0.2));
+            font-weight:700;
+            color:#ff4b8a;
+        }
+
+        /* Footer interno */
+        .meta {
+            margin-top:22px;
+            color: rgba(23,25,63,0.56);
+            font-size:13px;
+        }
+
+        /* Ajustes para botões originais disponíveis no projeto (mantendo caminhos) */
+        #botao {
+            display:flex;
+            flex-direction:column;
+            gap:12px;
+            margin-top: 10px;
+        }
+        #botao h3 a {
+            display:inline-block;
+            text-decoration:none;
+            padding:12px 18px;
+            border-radius:10px;
+            background: rgba(255,255,255,0.9);
+            border: 1px solid rgba(23,25,63,0.06);
+            color: #17193F;
+            font-weight:700;
+        }
+
+        /* Responsividade */
+        @media (max-width: 1100px) {
+            .container { grid-template-columns: 1fr; padding: 26px; gap:18px; }
+            .panel { order: 2; }
+        }
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 26px; }
+            .panel { padding:14px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        
-        <h1>Clinica</h1>
-        
-        <div id="botao">
-            <h3><a href="/medicos/listar" class="btn">Gerenciar Medicos</a></h3>
-            <h3><a href="/pacientes/listar" class="btn">Gerenciar Pacientes</button></h3>
-            <h3><a href="/consultas/listar" class="btn">Gerenciar Consultas</a></h3>
+    <div class="container" role="main" aria-labelledby="main-title">
+        <div class="hero" id="main-content">
+            <h1 id="main-title">Clínica • Sistema — gerencie prontuários e agendas com elegância</h1>
+            <p>Uma interface limpa e profissional com a estética suave em tons de rosa, alinhada ao design de sua imagem de fundo. Os links abaixo preservam os caminhos já presentes no seu projeto para evitar erros.</p>
+
+            <div class="cta">
+                <a class="btn-cta btn-primary" href="/pacientes/listar" title="Gerenciar Pacientes">
+                    <span class="bi bi-person-plus-fill" aria-hidden="true"></span>
+                    Gerenciar Pacientes
+                </a>
+
+                <a class="btn-cta btn-ghost" href="/medicos/listar" title="Gerenciar Médicos">
+                    Gerenciar Médicos
+                </a>
+            </div>
+
+            <div id="botao" aria-hidden="false">
+                <h3><a href="/medicos/listar" class="btn">Gerenciar Medicos</a></h3>
+                <h3><a href="/pacientes/listar" class="btn">Gerenciar Pacientes</a></h3>
+                <h3><a href="/consultas/listar" class="btn">Gerenciar Consultas</a></h3>
+            </div>
+
+            <p class="meta">Dica: mantenha a imagem em /clinica/src/main/resources/static/Design sem nome.jpg para garantir que o background continue sendo carregado exatamente como antes.</p>
         </div>
+
+        <aside class="panel" aria-label="Resumo rápido">
+            <h4>Visão geral</h4>
+            <p>Rápido acesso às principais áreas do sistema, relatórios e agendamentos.</p>
+
+            <div class="links" role="navigation" aria-label="Principais ações">
+                <a class="big-btn" href="/pacientes/listar">
+                    <div class="label"><div class="icon">P</div>Pacientes</div>
+                    <div class="count">1.248</div>
+                </a>
+
+                <a class="big-btn" href="/medicos/listar">
+                    <div class="label"><div class="icon">M</div>Médicos</div>
+                    <div class="count">84</div>
+                </a>
+
+                <a class="big-btn" href="/consultas/listar">
+                    <div class="label"><div class="icon">C</div>Consultas</div>
+                    <div class="count">27</div>
+                </a>
+            </div>
+
+            <div style="margin-top:16px; display:flex; gap:10px;">
+                <a class="btn-cta btn-primary" href="/pacientes/listar">Abrir painel</a>
+                <a class="btn-cta btn-ghost" href="/consultas/listar">Agenda</a>
+            </div>
+        </aside>
     </div>
-    
+
+    <!-- Mantive o script do bootstrap conforme estava no arquivo original -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
