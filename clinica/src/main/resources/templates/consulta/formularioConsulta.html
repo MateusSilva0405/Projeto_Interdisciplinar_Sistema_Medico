@@ -210,7 +210,7 @@
 
                 <div class="field">
                     <select id="medico" th:field="*{medico}" required>
-                        <option value="" th:text=""></option>
+                        <option value=""></option>
                         <option th:each="medico : ${medicos}" th:value="${medico.idMedico}" th:text="${medico.nomeMedico}"></option>
                     </select>
                     <label for="medico">Médico</label>
@@ -218,7 +218,7 @@
 
                 <div class="field">
                     <select id="paciente" th:field="*{paciente}" required>
-                        <option value="" th:text=""></option>
+                        <option value=""></option>
                         <option th:each="paciente : ${pacientes}" th:value="${paciente.idPaciente}" th:text="${paciente.nomePaciente}"></option>
                     </select>
                     <label for="paciente">Paciente</label>
