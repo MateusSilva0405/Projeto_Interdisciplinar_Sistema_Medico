@@ -219,6 +219,7 @@
             <h1 id="form-title">Cadastro de Paciente</h1>
             <p>Preencha os campos para registrar um paciente. Use o campo CEP para preencher automaticamente o endereço.</p>
 
+            <!-- Mantive th:action e th:object para integridade do projeto -->
             <form th:action="@{/pacientes/salvar}" method="POST" th:object="${paciente}" autocomplete="off">
                 <input type="hidden" name="idPaciente" th:field="*{idPaciente}" readonly/>
 
@@ -232,58 +233,83 @@
                     <label for="telPaciente">Telefone</label>
                 </div>
 
+                <!-- CEP + botão de busca (botão apenas estético: lookup automático no blur) -->
                 <div style="margin-bottom:18px;">
                     <label style="display:block;margin-bottom:8px;color:var(--muted);font-size:13px">Endereço</label>
                     <div class="cep-row">
-                        <!-- garantir id fixo para o script através de th:id -->
                         <div class="field">
-                            <input th:id="'cep'" th:field="*{cepPaciente}" name="cepPaciente" placeholder=" " required />
+                            <!-- USAR id="cep" para o script, name/th:field com o nome da entidade (cepPaciente) -->
+                            <input type="text" id="cep" name="cepPaciente" th:field="*{cepPaciente}" placeholder=" " required />
                             <label for="cep">CEP</label>
                         </div>
                         <button type="button" class="btn-lookup" id="btn-cep" title="Preencher endereço">Buscar</button>
                     </div>
                 </div>
 
+                <!-- Campos de endereço populados pela API viaCEP
+                     OBS: ids fixos (rua, bairro, cidade, uf, ibge) são usados pelo JS;
+                     names/th:field seguem os nomes das propriedades da entidade (ruaPaciente, bairroPaciente, ...) -->
                 <div class="field">
-                    <input th:id="'rua'" th:field="*{ruaPaciente}" name="ruaPaciente" placeholder=" " />
+                    <input type="text" id="rua" name="ruaPaciente" th:field="*{ruaPaciente}" placeholder=" " />
+                    <!-- ajuste: label for aponta para o id -->
                     <label for="rua">Rua</label>
                 </div>
 
                 <div class="field">
-                    <input th:id="'bairro'" th:field="*{bairroPaciente}" name="bairroPaciente" placeholder=" " />
+                    <input type="text" id="bairro" name="bairroPaciente" th:field="*{bairroPaciente}" placeholder=" " />
                     <label for="bairro">Bairro</label>
                 </div>
 
                 <div style="display:flex;gap:12px;">
                     <div style="flex:1">
                         <div class="field">
-                            <input th:id="'cidade'" th:field="*{cidadePaciente}" name="cidadePaciente" placeholder=" " />
+                            <input type="text" id="cidade" name="cidadePaciente" th:field="*{cidadePaciente}" placeholder=" " />
                             <label for="cidade">Cidade</label>
                         </div>
                     </div>
 
                     <div style="width:120px">
                         <div class="field">
-                            <input th:id="'uf'" th:field="*{ufPaciente}" name="ufPaciente" placeholder=" " />
+                            <input type="text" id="uf" name="ufPaciente" th:field="*{ufPaciente}" placeholder=" " />
                             <label for="uf">Estado</label>
                         </div>
                     </div>
                 </div>
 
-                <!-- campo ibge oculto, th:field binda com ibgePaciente (adicionado à entidade) -->
-                <input type="hidden" th:id="'ibge'" th:field="*{ibgePaciente}" name="ibgePaciente" />
+                <!-- campo ibge oculto, mantido para integração (nome consistente com a entidade) -->
+                <input type="hidden" id="ibge" name="ibgePaciente" th:field="*{ibgePaciente}" />
 
-                <div class="actions" style="margin-top:18px">
-                    <button type="submit" class="btn-save" style="padding:12px 18px;border-radius:10px;background:linear-gradient(90deg,#ff79a6,#ff4b8a);color:#fff;border:none;font-weight:700">Salvar</button>
-                    <a href="/clinica" class="btn-back" style="padding:10px 14px;border-radius:10px;border:1px solid rgba(23,25,63,0.06);text-decoration:none;color:var(--dark-900);font-weight:600;margin-left:8px">Voltar</a>
+                <div class="actions">
+                    <button type="submit" class="btn-save">Salvar</button>
+                    <a href="/clinica" class="btn-back">Voltar</a>
                 </div>
             </form>
         </div>
 
         <aside class="side-panel" aria-label="Informações rápidas">
             <h4>Dicas</h4>
-            <p>Ao preencher o CEP (e sair do campo), os campos de rua, bairro, cidade e estado serão automaticamente preenchidos pela API ViaCEP.</p>
-            <!-- ... painel lateral ... -->
+            <p>Ao preencher o CEP, os campos de rua, bairro, cidade e estado serão automaticamente preenchidos pela API ViaCEP.</p>
+
+            <div class="small-stat">
+                <div class="dot">P</div>
+                <div>
+                    <div style="font-weight:700;color:var(--dark-900)">Pacientes</div>
+                    <div style="color:var(--muted);font-size:13px">Gerencie cadastros e histórico clínico</div>
+                </div>
+            </div>
+
+            <div class="small-stat">
+                <div class="dot">A</div>
+                <div>
+                    <div style="font-weight:700;color:var(--dark-900)">Agenda</div>
+                    <div style="color:var(--muted);font-size:13px">Agende consultas e receba lembretes</div>
+                </div>
+            </div>
+
+            <div style="margin-top:16px">
+                <a class="btn-save" href="/pacientes/listar">Abrir painel</a>
+                <a class="btn-back" href="/consultas/listar" style="margin-left:8px">Agenda</a>
+            </div>
         </aside>
     </div>
 
