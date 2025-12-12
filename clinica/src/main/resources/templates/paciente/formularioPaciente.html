@@ -34,20 +34,17 @@
             -webkit-font-smoothing:antialiased;
             -moz-osx-font-smoothing:grayscale;
 
-            /* Preservei o caminho da imagem original para evitar problemas no seu projeto */
             background-repeat: no-repeat;
             background-image: url('/clinica/src/main/resources/static/Design\ sem\ nome.jpg');
             background-position: right center;
             background-size: cover;
 
             display:flex;
-            /* ALTERAÇÃO: alinhar ao topo para permitir que o formulário cresça e role */
             align-items:flex-start;
             justify-content:center;
             padding:28px 20px 60px;
         }
 
-        /* Card principal com a estética parecida com o index */
         .card-wrap{
             width: 100%;
             max-width: 1000px;
@@ -59,11 +56,9 @@
             grid-template-columns: 1fr 380px;
             gap:24px;
             align-items:start;
-            /* ALTERAÇÃO: permitir overflow para que campos mais abaixo não sejam cortados */
             overflow:visible;
         }
 
-        /* Left: formulário */
         .form-area {
             padding-right: 6px;
         }
@@ -80,8 +75,6 @@
             font-size:14px;
         }
 
-        /* Mantive estilo dos campos "floating" presente no formulário antigo,
-           mas adaptado para combinar com o novo visual */
         .field {
             position:relative;
             margin-bottom:22px;
@@ -127,7 +120,6 @@
             background: transparent;
         }
 
-        /* Group for cep + lookup button */
         .cep-row{
             display:flex;
             gap:10px;
@@ -145,7 +137,6 @@
             box-shadow: 0 10px 26px rgba(255,75,138,0.10);
         }
 
-        /* Right: painel com resumo/ajuda (mantendo estética do index) */
         .side-panel{
             background: linear-gradient(180deg,var(--glass), rgba(255,255,255,0.72));
             border-radius: 12px;
@@ -192,7 +183,6 @@
             font-weight:600;
         }
 
-        /* Mantive o layout do #botao original (links existentes) para evitar quebras no projeto */
         #botao {
             margin-top: 18px;
         }
@@ -219,7 +209,6 @@
             <h1 id="form-title">Cadastro de Paciente</h1>
             <p>Preencha os campos para registrar um paciente. Use o campo CEP para preencher automaticamente o endereço.</p>
 
-            <!-- Mantive th:action e th:object para integridade do projeto -->
             <form th:action="@{/pacientes/salvar}" method="POST" th:object="${paciente}" autocomplete="off">
                 <input type="hidden" name="idPaciente" th:field="*{idPaciente}" readonly/>
 
@@ -233,7 +222,7 @@
                     <label for="telPaciente">Telefone</label>
                 </div>
 
-                <!-- CEP + botão de busca (botão apenas estético: lookup automático no blur) -->
+                <!-- CEP + botão de busca (botão apenas estético) -->
                 <div style="margin-bottom:18px;">
                     <label style="display:block;margin-bottom:8px;color:var(--muted);font-size:13px">Endereço</label>
                     <div class="cep-row">
@@ -276,7 +265,6 @@
                     </div>
                 </div>
 
-                <!-- campo ibge oculto, mantido para integração (nome consistente com a entidade) -->
                 <input type="hidden" id="ibge" name="ibgePaciente" th:field="*{ibgePaciente}" />
 
                 <div class="actions">
