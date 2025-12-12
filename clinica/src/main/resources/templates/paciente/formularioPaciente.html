@@ -190,8 +190,6 @@
   </style>
 </head>
 <body>
-
-  <!-- Botão de tema -->
   <button class="theme-toggle" id="theme-toggle" title="Alternar tema">
     <i class="bi bi-moon-fill" id="theme-icon"></i>
   </button>
@@ -252,7 +250,6 @@
   </div>
 
   <script>
-    // --- Alternar tema ---
     const toggleBtn = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
     const body = document.body;
@@ -271,7 +268,6 @@
       localStorage.setItem('theme', dark ? 'dark' : 'light');
     });
 
-    // --- Busca CEP ---
     (function(){
       function limpaFormulario() {
         ['rua','bairro','cidade','uf','ibge'].forEach(id=>{
