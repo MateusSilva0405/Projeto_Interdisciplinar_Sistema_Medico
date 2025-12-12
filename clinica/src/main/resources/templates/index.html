@@ -1,248 +1,264 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Clínica</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clínica</title>
 
-    <!-- Mantive os mesmos caminhos para não causar erro no seu código -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
-    <style>
-        /* --- Preservei a propriedade background-image original (caminho mantido) --- */
-        body {
-            background-color: #F2F2F2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-repeat: no-repeat;
-            background-image: url('/clinica/src/main/resources/static/Design\ sem\ nome.jpg');
-            background-position: right center;
-            background-size: cover;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-            color: #17193F;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
+  <style>
+    /* --------------------- VARIÁVEIS DE TEMA --------------------- */
+    :root {
+      --bg-color: #F2F2F2;
+      --text-color: #17193F;
+      --panel-bg: rgba(255,255,255,0.9);
+      --card-shadow: rgba(23,25,63,0.12);
+      --btn-primary-bg: linear-gradient(90deg, #ff79a6, #ff4b8a);
+      --btn-ghost-border: rgba(23,25,63,0.06);
+      --hero-sub: rgba(23,25,63,0.68);
+      --icon-bg: linear-gradient(135deg, rgba(255,121,166,0.18), rgba(255,75,138,0.2));
+    }
 
-        /* Container principal com estética limpa e profissional */
-        .container {
-            display: grid;
-            grid-template-columns: 1fr 460px;
-            gap: 28px;
-            border-radius: 16px;
-            box-shadow: 0 18px 40px rgba(23,25,63,0.12);
-            width: 1200px;
-            max-width: 92%;
-            min-height: 520px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.90));
-            padding: 36px;
-            align-items: center;
-            overflow: hidden;
-        }
+    body.dark-theme {
+      --bg-color: #121212;
+      --text-color: #f7f7f7;
+      --panel-bg: rgba(30,30,30,0.9);
+      --card-shadow: rgba(0,0,0,0.6);
+      --btn-primary-bg: linear-gradient(90deg, #ff4b8a, #ff79a6);
+      --btn-ghost-border: rgba(255,255,255,0.15);
+      --hero-sub: rgba(255,255,255,0.7);
+      --icon-bg: linear-gradient(135deg, rgba(255,121,166,0.25), rgba(255,75,138,0.25));
+    }
 
-        /* Conteúdo da esquerda (título e botões) */
-        .hero {
-            padding-right: 8px;
-        }
-        .hero h1 {
-            font-size: 40px;
-            line-height: 1.02;
-            margin-bottom: 10px;
-            color: #17193F;
-            font-weight: 700;
-        }
-        .hero p {
-            color: rgba(23,25,63,0.68);
-            font-size: 16px;
-            margin-bottom: 20px;
-            max-width: 680px;
-        }
+    /* --------------------- ESTILOS BASE --------------------- */
+    body {
+      background-color: var(--bg-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-repeat: no-repeat;
+      background-image: url('/clinica/src/main/resources/static/Design\ sem\ nome.jpg');
+      background-position: right center;
+      background-size: cover;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color: var(--text-color);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background 0.4s, color 0.4s;
+    }
 
-        .cta {
-            display:flex;
-            gap:14px;
-            align-items:center;
-            margin-bottom:22px;
-        }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 460px;
+      gap: 28px;
+      border-radius: 16px;
+      box-shadow: 0 18px 40px var(--card-shadow);
+      width: 1200px;
+      max-width: 92%;
+      min-height: 520px;
+      background: var(--panel-bg);
+      padding: 36px;
+      align-items: center;
+      overflow: hidden;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
 
-        .btn-cta {
-            display:inline-flex;
-            align-items:center;
-            gap:10px;
-            padding:12px 18px;
-            border-radius:12px;
-            font-weight:700;
-            text-decoration:none;
-            border: none;
-            cursor:pointer;
-        }
+    .hero h1 {
+      font-size: 40px;
+      line-height: 1.02;
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: var(--text-color);
+    }
 
-        .btn-primary {
-            background: linear-gradient(90deg, #ff79a6, #ff4b8a);
-            color: #fff;
-            box-shadow: 0 12px 30px rgba(255,75,138,0.12);
-        }
+    .hero p {
+      color: var(--hero-sub);
+      font-size: 16px;
+      margin-bottom: 20px;
+      max-width: 680px;
+    }
 
-        .btn-ghost {
-            background: transparent;
-            border: 1px solid rgba(23,25,63,0.06);
-            color: #17193F;
-        }
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
 
-        /* Caixa da direita (cards rápidos) */
-        .panel {
-            background: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(255,255,255,0.7));
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 12px 30px rgba(23,25,63,0.06);
-            border: 1px solid rgba(23,25,63,0.03);
-            min-height: 360px;
-        }
+    .btn-primary {
+      background: var(--btn-primary-bg);
+      color: #fff;
+      box-shadow: 0 12px 30px rgba(255,75,138,0.2);
+    }
 
-        .panel h4 { margin: 0 0 8px 0; color: #17193F; }
-        .panel p { color: rgba(23,25,63,0.6); margin-bottom: 14px; }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--btn-ghost-border);
+      color: var(--text-color);
+    }
 
-        .links {
-            display:flex;
-            flex-direction:column;
-            gap:12px;
-            margin-top:18px;
-        }
+    .panel {
+      background: var(--panel-bg);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 12px 30px var(--card-shadow);
+      border: 1px solid rgba(23,25,63,0.03);
+      min-height: 360px;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
 
-        .big-btn {
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-            padding:14px 18px;
-            border-radius:12px;
-            background: rgba(23,25,63,0.03);
-            text-decoration:none;
-            color: #17193F;
-            font-weight:600;
-            border: 1px solid rgba(23,25,63,0.04);
-        }
+    .big-btn {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 18px;
+      border-radius:12px;
+      background: rgba(23,25,63,0.03);
+      text-decoration:none;
+      color: var(--text-color);
+      font-weight:600;
+      border: 1px solid rgba(23,25,63,0.04);
+      transition: background 0.4s, color 0.4s;
+    }
 
-        .big-btn .label {
-            display:flex;
-            gap:12px;
-            align-items:center;
-        }
-        .icon {
-            width:44px;
-            height:44px;
-            border-radius:10px;
-            display:grid;
-            place-items:center;
-            background: linear-gradient(135deg, rgba(255,121,166,0.18), rgba(255,75,138,0.2));
-            font-weight:700;
-            color:#ff4b8a;
-        }
+    .icon {
+      width:44px;
+      height:44px;
+      border-radius:10px;
+      display:grid;
+      place-items:center;
+      background: var(--icon-bg);
+      font-weight:700;
+      color:#ff4b8a;
+    }
 
-        /* Footer interno */
-        .meta {
-            margin-top:22px;
-            color: rgba(23,25,63,0.56);
-            font-size:13px;
-        }
+    /* Botões "Gerenciar..." — adicionada transição e cor sincronizada */
+    #botao h3 a {
+      display: inline-block;
+      text-decoration: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(23,25,63,0.06);
+      color: var(--text-color);
+      font-weight: 700;
+      transition: background 0.3s, color 0.4s, border-color 0.3s;
+    }
 
-        /* Ajustes para botões originais disponíveis no projeto (mantendo caminhos) */
-        #botao {
-            display:flex;
-            flex-direction:column;
-            gap:12px;
-            margin-top: 10px;
-        }
-        #botao h3 a {
-            display:inline-block;
-            text-decoration:none;
-            padding:12px 18px;
-            border-radius:10px;
-            background: rgba(255,255,255,0.9);
-            border: 1px solid rgba(23,25,63,0.06);
-            color: #17193F;
-            font-weight:700;
-        }
+    body.dark-theme #botao h3 a {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--text-color);
+    }
 
-        /* Responsividade */
-        @media (max-width: 1100px) {
-            .container { grid-template-columns: 1fr; padding: 26px; gap:18px; }
-            .panel { order: 2; }
-        }
-        @media (max-width: 640px) {
-            .hero h1 { font-size: 26px; }
-            .panel { padding:14px; }
-        }
-    </style>
+    /* Botão tema */
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      background: transparent;
+      border: 2px solid var(--btn-ghost-border);
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-color);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    @media (max-width: 1100px) {
+      .container { grid-template-columns: 1fr; padding: 26px; gap:18px; }
+      .panel { order: 2; }
+    }
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 26px; }
+      .panel { padding:14px; }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="container" role="main" aria-labelledby="main-title">
-        <div class="hero" id="main-content">
-            <h1 id="main-title">Psicoduo • Sistema — Gerenciamento de clientes e médicos</h1>
-            <p>Sistema da clínica Psicoduo, criado para tornar o dia a dia mais prático. Aqui você pode gerenciar pacientes, agendamentos e atendimentos de forma simples, rápida e totalmente organizada.</p>
+  <!-- botão de alternar tema -->
+  <button class="theme-toggle" id="theme-toggle" title="Alternar tema">
+    <i class="bi bi-moon-fill" id="theme-icon"></i>
+  </button>
 
-            <div class="cta">
-                <a class="btn-cta btn-primary" href="/pacientes/listar" title="Gerenciar Pacientes">
-                    <span class="bi bi-person-plus-fill" aria-hidden="true"></span>
-                    Gerenciar Pacientes
-                </a>
-            </div>
+  <div class="container">
+    <div class="hero">
+      <h1>Psicoduo • Sistema — Gerenciamento de clientes e médicos</h1>
+      <p>Sistema da clínica Psicoduo, criado para tornar o dia a dia mais prático. Aqui você pode gerenciar pacientes, agendamentos e atendimentos de forma simples, rápida e totalmente organizada.</p>
 
-            <div id="botao" aria-hidden="false">
-                <h3><a href="/medicos/listar" class="btn">Gerenciar Medicos</a></h3>
-                <h3><a href="/consultas/listar" class="btn">Gerenciar Consultas</a></h3>
-                <h3><a href="/consultas/listar-nome-medico" class="btn">Consultas do Médico</a></h3>
-            </div>
+      <div class="cta">
+        <a class="btn-cta btn-primary" href="/pacientes/listar">
+          <span class="bi bi-person-plus-fill"></span>
+          Gerenciar Pacientes
+        </a>
+      </div>
 
-            <p class="meta">“Psicoduo — Cuidando da mente com leveza, acolhimento e cor.”</p>
-        </div>
+      <div id="botao">
+        <h3><a href="/medicos/listar" class="btn">Gerenciar Médicos</a></h3>
+        <h3><a href="/consultas/listar" class="btn">Gerenciar Consultas</a></h3>
+        <h3><a href="/consultas/listar-nome-medico" class="btn">Consultas do Médico</a></h3>
+      </div>
 
-        <aside class="panel" aria-label="Resumo rápido">
-            <h4>Visão geral</h4>
-            <p>Rápido acesso às principais áreas do sistema, relatórios e agendamentos.</p>
-
-            <div class="links" role="navigation" aria-label="Principais ações">
-                <a class="big-btn" href="/pacientes/listar">
-                    <div class="label"><div class="icon">P</div>Pacientes</div>
-                    <div class="count"></div>
-
-                    <div class="count">0</div>
-
-                </a>
-
-                <a class="big-btn" href="/medicos/listar">
-                    <div class="label"><div class="icon">M</div>Médicos</div>
-
-                    <div class="count"></div>
-
-                    <div class="count">0</div>
-                </a>
-
-                <a class="big-btn" href="/consultas/listar">
-                    <div class="label"><div class="icon">C</div>Consultas</div>
-
-                    <div class="count"></div>
-
-                    <div class="count">0</div>
-
-                </a>
-            </div>
-
-            <div style="margin-top:16px; display:flex; gap:10px;">
-                <a class="btn-cta btn-primary" href="/pacientes/listar">Abrir painel</a>
-                <a class="btn-cta btn-ghost" href="/consultas/listar">Agenda</a>
-            </div>
-        </aside>
+      <p class="meta">“Psicoduo — Cuidando da mente com leveza, acolhimento e cor.”</p>
     </div>
 
-    <!-- Mantive o script do bootstrap conforme estava no arquivo original -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <aside class="panel">
+      <h4>Visão geral</h4>
+      <p>Rápido acesso às principais áreas do sistema, relatórios e agendamentos.</p>
+
+      <div class="links">
+        <a class="big-btn" href="/pacientes/listar"><div class="label"><div class="icon">P</div>Pacientes</div><div class="count">0</div></a>
+        <a class="big-btn" href="/medicos/listar"><div class="label"><div class="icon">M</div>Médicos</div><div class="count">0</div></a>
+        <a class="big-btn" href="/consultas/listar"><div class="label"><div class="icon">C</div>Consultas</div><div class="count">0</div></a>
+      </div>
+
+      <div style="margin-top:16px; display:flex; gap:10px;">
+        <a class="btn-cta btn-primary" href="/pacientes/listar">Abrir painel</a>
+        <a class="btn-cta btn-ghost" href="/consultas/listar">Agenda</a>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const body = document.body;
+
+    // aplica tema salvo
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      body.classList.add('dark-theme');
+      themeIcon.classList.replace('bi-moon-fill', 'bi-sun-fill');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark-theme');
+      const darkMode = body.classList.contains('dark-theme');
+      themeIcon.classList.toggle('bi-moon-fill', !darkMode);
+      themeIcon.classList.toggle('bi-sun-fill', darkMode);
+      localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+    });
+  </script>
+
 </body>
 </html>
