@@ -1,244 +1,224 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Adicionar Médico</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adicionar Médico</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --pink-200:#ffd4e3;
+      --pink-500:#ff79a6;
+      --pink-700:#ff4b8a;
+      --dark-900:#17193F;
+      --muted:rgba(23,25,63,0.64);
+      --glass:rgba(255,255,255,0.82);
+      --shadow-sm:0 10px 30px rgba(23,25,63,0.06);
+      --bg-color:#F2F2F2;
+      --input-bg:rgba(255,255,255,0.95);
+      --input-text:#17193F;
+      --panel-bg:linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.90));
+      --label-color:rgba(23,25,63,0.64);
+    }
 
-    <style>
-        :root{
-            --pink-200: #ffd4e3;
-            --pink-500: #ff79a6;
-            --pink-700: #ff4b8a;
-            --dark-900: #17193F;
-            --muted: rgba(23,25,63,0.64);
-            --glass: rgba(255,255,255,0.82);
-            --radius: 14px;
-            --shadow-sm: 0 10px 30px rgba(23,25,63,0.06);
-        }
+    body.dark-theme{
+      --bg-color:#121212;
+      --dark-900:#f7f7f7;
+      --muted:rgba(255,255,255,0.6);
+      --glass:rgba(30,30,30,0.9);
+      --panel-bg:linear-gradient(180deg, rgba(30,30,30,0.96), rgba(25,25,25,0.92));
+      --input-bg:rgba(40,40,40,0.9);
+      --input-text:#fff;
+      --label-color:rgba(255,255,255,0.7);
+    }
 
-        *{box-sizing:border-box;margin:0;padding:0}
-        html,body{height:100%}
-        body{
-            font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-            color:var(--dark-900);
-            background-color: #F2F2F2;
-            -webkit-font-smoothing:antialiased;
-            -moz-osx-font-smoothing:grayscale;
+    *{box-sizing:border-box;margin:0;padding:0;transition:background-color .4s,color .4s,border-color .4s;}
+    html,body{height:100%}
+    body{
+      font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      color:var(--dark-900);
+      background-color:var(--bg-color);
+      background-repeat:no-repeat;
+      background-image:url('/clinica/src/main/resources/static/Design\\ sem\\ nome.jpg');
+      background-position:right center;
+      background-size:cover;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:28px;
+    }
 
-            /* Preservei o caminho da imagem original para evitar problemas no seu projeto */
-            background-repeat: no-repeat;
-            background-image: url('/clinica/src/main/resources/static/Design\ sem\ nome.jpg');
-            background-position: right center;
-            background-size: cover;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            padding:28px;
-        }
+    .card-wrap{
+      width:100%;
+      max-width:1000px;
+      background:var(--panel-bg);
+      border-radius:16px;
+      box-shadow:var(--shadow-sm);
+      padding:28px;
+      display:grid;
+      grid-template-columns:1fr 360px;
+      gap:24px;
+      align-items:start;
+      overflow:hidden;
+    }
 
-        .card-wrap{
-            width: 100%;
-            max-width: 1000px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.90));
-            border-radius: 16px;
-            box-shadow: var(--shadow-sm);
-            padding: 28px;
-            display:grid;
-            grid-template-columns: 1fr 360px;
-            gap:24px;
-            align-items:start;
-            overflow:hidden;
-        }
+    .form-area h1{font-size:28px;margin-bottom:6px;color:var(--dark-900);font-weight:700;}
+    .form-area p{color:var(--muted);margin-bottom:18px;font-size:14px;}
 
-        .form-area {
-            padding-right: 6px;
-        }
+    .field{position:relative;margin-bottom:22px;}
+    .field input[type="text"],
+    .field input[type="hidden"]{
+      width:100%;padding:14px;border-radius:10px;border:1px solid rgba(23,25,63,0.08);
+      background:var(--input-bg);font-size:15px;color:var(--input-text);outline:none;
+    }
+    .field label{
+      position:absolute;left:14px;top:10px;font-size:13px;color:var(--label-color);
+      pointer-events:none;transition:all .18s ease;background:transparent;padding:0 6px;
+    }
+    .field input:focus{box-shadow:0 8px 20px rgba(23,25,63,0.04);border-color:rgba(255,75,138,0.35);}
+    .field input:focus + label,
+    .field input:not(:placeholder-shown) + label{
+      transform:translateY(-20px) scale(.95);left:10px;font-size:12px;color:var(--pink-700);
+    }
 
-        .form-area h1{
-            font-size:28px;
-            margin-bottom:6px;
-            color:var(--dark-900);
-            font-weight:700;
-        }
-        .form-area p {
-            color:var(--muted);
-            margin-bottom:18px;
-            font-size:14px;
-        }
+    .side-panel{
+      background:var(--glass);
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 10px 30px rgba(23,25,63,0.06);
+      border:1px solid rgba(23,25,63,0.03);
+      min-height:320px;
+    }
+    .side-panel h4{margin:0 0 8px 0;color:var(--dark-900);}
+    .side-panel p{color:var(--muted);font-size:14px;margin-bottom:10px;}
 
-        .field {
-            position:relative;
-            margin-bottom:22px;
-        }
+    .small-stat{display:flex;gap:12px;margin-top:14px;align-items:center;}
+    .small-stat .dot{
+      width:44px;height:44px;border-radius:10px;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--pink-200),var(--pink-500));
+      color:white;font-weight:700;
+    }
 
-        .field input[type="text"],
-        .field input[type="hidden"]{
-            width:100%;
-            padding:14px 14px 14px 14px;
-            border-radius:10px;
-            border:1px solid rgba(23,25,63,0.08);
-            background:rgba(255,255,255,0.95);
-            font-size:15px;
-            color:var(--dark-900);
-            outline:none;
-            transition: box-shadow .18s ease, border-color .18s ease;
-        }
+    .actions{display:flex;gap:12px;margin-top:18px;align-items:center;}
+    .btn-save{
+      padding:12px 18px;border-radius:10px;
+      background:linear-gradient(90deg,var(--pink-500),var(--pink-700));
+      color:white;border:none;font-weight:700;cursor:pointer;
+      box-shadow:0 12px 30px rgba(255,75,138,0.12);
+    }
+    .btn-back{
+      padding:10px 14px;border-radius:10px;background:transparent;
+      border:1px solid rgba(23,25,63,0.06);color:var(--dark-900);
+      text-decoration:none;font-weight:600;
+    }
+    body.dark-theme .btn-back{
+      border-color:rgba(255,255,255,0.15);color:#fff;
+    }
 
-        .field label{
-            position:absolute;
-            left:14px;
-            top:10px;
-            font-size:13px;
-            color:var(--muted);
-            pointer-events:none;
-            transition: all .18s ease;
-            background: transparent;
-            padding:0 6px;
-        }
+    #botao{margin-top:18px;}
+    #botao h3 a{
+      text-decoration:none;padding:10px 14px;border-radius:10px;display:inline-block;
+      background:rgba(255,255,255,0.9);border:1px solid rgba(23,25,63,0.06);
+      color:var(--dark-900);font-weight:700;
+      transition:background .4s,color .4s,border-color .4s;
+    }
+    body.dark-theme #botao h3 a{
+      background:rgba(40,40,40,0.9);border-color:rgba(255,255,255,0.1);color:#f7f7f7;
+    }
 
-        .field input:focus {
-            box-shadow: 0 8px 20px rgba(23,25,63,0.04);
-            border-color: rgba(255,75,138,0.35);
-        }
-
-        .field input:focus + label,
-        .field input:not(:placeholder-shown) + label{
-            transform: translateY(-20px) scale(.95);
-            left:10px;
-            font-size:12px;
-            color:var(--pink-700);
-            background: transparent;
-        }
-
-        .side-panel{
-            background: linear-gradient(180deg,var(--glass), rgba(255,255,255,0.72));
-            border-radius: 12px;
-            padding:18px;
-            box-shadow: 0 10px 30px rgba(23,25,63,0.06);
-            border: 1px solid rgba(23,25,63,0.03);
-            min-height:320px;
-        }
-
-        .side-panel h4{ margin: 0 0 8px 0; color:var(--dark-900); }
-        .side-panel p{ color: var(--muted); font-size:14px; margin-bottom:10px; }
-
-        .small-stat{
-            display:flex;
-            gap:12px;
-            margin-top:14px;
-            align-items:center;
-        }
-        .small-stat .dot{
-            width:44px;height:44px;border-radius:10px;display:grid;place-items:center;
-            background:linear-gradient(135deg,var(--pink-200),var(--pink-500));
-            color:white;font-weight:700;
-        }
-
-        .actions{ display:flex; gap:12px; margin-top:18px; align-items:center;}
-        .btn-save{
-            padding:12px 18px;
-            border-radius:10px;
-            background: linear-gradient(90deg,var(--pink-500),var(--pink-700));
-            color:white;
-            border:none;
-            font-weight:700;
-            cursor:pointer;
-            box-shadow: 0 12px 30px rgba(255,75,138,0.12);
-        }
-        .btn-back{
-            padding:10px 14px;
-            border-radius:10px;
-            background:transparent;
-            border:1px solid rgba(23,25,63,0.06);
-            color:var(--dark-900);
-            text-decoration:none;
-            font-weight:600;
-        }
-
-        #botao {
-            margin-top: 18px;
-        }
-        #botao h3 a {
-            text-decoration:none;
-            padding:10px 14px;
-            border-radius:10px;
-            display:inline-block;
-            background: rgba(255,255,255,0.9);
-            border: 1px solid rgba(23,25,63,0.06);
-            color: var(--dark-900);
-            font-weight:700;
-        }
-
-        /* Responsividade */
-        @media (max-width:980px){
-            .card-wrap{ grid-template-columns: 1fr; padding:20px;}
-        }
-    </style>
+    /* Botão tema */
+    .theme-toggle{
+      position:fixed;top:20px;right:30px;background:transparent;
+      border:2px solid rgba(23,25,63,0.1);border-radius:50%;
+      width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+      color:var(--dark-900);cursor:pointer;transition:all .3s;z-index:999;
+    }
+    .theme-toggle:hover{background:rgba(255,255,255,0.1);}
+    @media(max-width:980px){.card-wrap{grid-template-columns:1fr;padding:20px;}}
+  </style>
 </head>
 <body>
-    <div class="card-wrap" role="main" aria-labelledby="form-title">
-        <div class="form-area">
-            <h1 id="form-title">Cadastro de Médico</h1>
-            <p>Preencha os dados do médico. Campos e rotas foram mantidos para compatibilidade com o back-end.</p>
 
-            <form th:action="@{/medicos/salvar}" method="POST" th:object="${medico}" autocomplete="off">
-                <input type="hidden" name="idMedico" th:field="*{idMedico}" readonly/>
+  <!-- Botão tema -->
+  <button class="theme-toggle" id="theme-toggle" title="Alternar tema">
+    <i class="bi bi-moon-fill" id="theme-icon"></i>
+  </button>
 
-                <div class="field">
-                    <input type="text" id="nomeMedico" name="nomeMedico" th:field="*{nomeMedico}" placeholder=" " required />
-                    <label for="nomeMedico">Nome completo</label>
-                </div>
+  <div class="card-wrap" role="main" aria-labelledby="form-title">
+    <div class="form-area">
+      <h1 id="form-title">Cadastro de Médico</h1>
+      <p>Preencha os dados do médico. Campos e rotas foram mantidos para compatibilidade com o back-end.</p>
 
-                <div class="field">
-                    <input type="text" id="crmMedico" name="crmMedico" th:field="*{crmMedico}" placeholder=" " required />
-                    <label for="crmMedico">CRM</label>
-                </div>
+      <form th:action="@{/medicos/salvar}" method="POST" th:object="${medico}" autocomplete="off">
+        <input type="hidden" name="idMedico" th:field="*{idMedico}" readonly/>
 
-                <div class="field">
-                    <input type="text" id="especialidadeMedico" name="especialidadeMedico" th:field="*{especialidadeMedico}" placeholder=" " required />
-                    <label for="especialidadeMedico">Especialização</label>
-                </div>
-
-                <div class="actions">
-                    <button type="submit" class="btn-save">Salvar</button>
-                    <a href="/clinica" class="btn-back">Voltar</a>
-                </div>
-            </form>
+        <div class="field">
+          <input type="text" id="nomeMedico" name="nomeMedico" th:field="*{nomeMedico}" placeholder=" " required />
+          <label for="nomeMedico">Nome completo</label>
         </div>
 
-        <aside class="side-panel" aria-label="Informações rápidas">
+        <div class="field">
+          <input type="text" id="crmMedico" name="crmMedico" th:field="*{crmMedico}" placeholder=" " required />
+          <label for="crmMedico">CRM</label>
+        </div>
 
-            <div class="small-stat" style="margin-top:12px">
-                <div class="dot">M</div>
-                <div>
-                    <div style="font-weight:700;color:var(--dark-900)">Médicos</div>
-                    <div style="color:var(--muted);font-size:13px">Lista, edições e históricos disponíveis no painel.</div>
-                </div>
-            </div>
+        <div class="field">
+          <input type="text" id="especialidadeMedico" name="especialidadeMedico" th:field="*{especialidadeMedico}" placeholder=" " required />
+          <label for="especialidadeMedico">Especialização</label>
+        </div>
 
-            <div class="small-stat">
-                <div class="dot">A</div>
-                <div>
-                    <div style="font-weight:700;color:var(--dark-900)">Agenda</div>
-                    <div style="color:var(--muted);font-size:13px">Vincule médicos a horários e salas.</div>
-                </div>
-            </div>
-
-            <div style="margin-top:16px">
-                <a class="btn-save" href="/medicos/listar">Abrir painel</a>
-                <a class="btn-back" href="/consultas/listar" style="margin-left:8px">Agenda</a>
-            </div>
-        </aside>
+        <div class="actions">
+          <button type="submit" class="btn-save">Salvar</button>
+          <a href="/clinica" class="btn-back">Voltar</a>
+        </div>
+      </form>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <aside class="side-panel">
+      <div class="small-stat" style="margin-top:12px">
+        <div class="dot">M</div>
+        <div>
+          <div style="font-weight:700;color:var(--dark-900)">Médicos</div>
+          <div style="color:var(--muted);font-size:13px">Lista, edições e históricos disponíveis no painel.</div>
+        </div>
+      </div>
+
+      <div class="small-stat">
+        <div class="dot">A</div>
+        <div>
+          <div style="font-weight:700;color:var(--dark-900)">Agenda</div>
+          <div style="color:var(--muted);font-size:13px">Vincule médicos a horários e salas.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px">
+        <a class="btn-save" href="/medicos/listar">Abrir painel</a>
+        <a class="btn-back" href="/consultas/listar" style="margin-left:8px">Agenda</a>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    const toggleBtn=document.getElementById('theme-toggle');
+    const themeIcon=document.getElementById('theme-icon');
+    const body=document.body;
+    const savedTheme=localStorage.getItem('theme');
+    if(savedTheme==='dark'){
+      body.classList.add('dark-theme');
+      themeIcon.classList.replace('bi-moon-fill','bi-sun-fill');
+    }
+    toggleBtn.addEventListener('click',()=>{
+      body.classList.toggle('dark-theme');
+      const dark=body.classList.contains('dark-theme');
+      themeIcon.classList.toggle('bi-moon-fill',!dark);
+      themeIcon.classList.toggle('bi-sun-fill',dark);
+      localStorage.setItem('theme',dark?'dark':'light');
+    });
+  </script>
 </body>
 </html>
